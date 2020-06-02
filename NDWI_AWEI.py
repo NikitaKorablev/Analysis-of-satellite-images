@@ -9,7 +9,7 @@ def openFile(filepath):
     band = raster.ReadAsArray()
     return band
 
-folder = r'D:\EarthExplorer\nnovgorod\2018\23-JUN\LC08_L1TP_175021_20180623_20180703_01_T1_B'
+folder = r'D:\EarthExplorer\NOU2020\nnovgorod\2018\23-JUN\LC08_L1TP_175021_20180623_20180703_01_T1_B'
 
 filepath_b3 = folder + '3.TIF'
 filepath_b5 = folder + '5.TIF'
