@@ -9,15 +9,19 @@ def openFile(filepath):
     band = raster.ReadAsArray()
     return band
 
-folder = r'D:\EarthExplorer\NOU2020\nnovgorod\2018\23-JUN\LC08_L1TP_175021_20180623_20180703_01_T1_B'
+folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\23-JUN\REFLECTANCE\Landsat_B'
+b1 = np.load(folder + '1.npy')
+b2 = np.load(folder + '2.npy')
+b3 = np.load(folder + '3.npy')
+b4 = np.load(folder + '4.npy')
+b5 = np.load(folder + '5.npy')
+#b6 = np.load(folder + '6.npy')
+b7 = np.load(folder + '7.npy')
+#b8 = np.load(folder + '8.npy')
+b9 = np.load(folder + '9.npy')
+#b10 = np.load(folder + '10.npy')
+#b11 = np.load(folder + '11.npy')
 
-filepath_b3 = folder + '3.TIF'
-filepath_b5 = folder + '5.TIF'
-filepath_b9 = folder + '9.TIF'
-
-b3 = openFile(filepath_b3)
-b5 = openFile(filepath_b5)
-b9 = openFile(filepath_b9)
 
 #1 0.435–0.451 Coastal Aerosol (CA)
 #2 0.452–0.512 Blue
