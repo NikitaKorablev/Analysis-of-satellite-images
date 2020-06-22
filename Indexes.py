@@ -115,3 +115,4 @@ h4 = histogram(AWEIsh, 100)
 
 #AWEI = 4*(b3-b5)-(0.25*b5+2.75*b9)
 #print (np.max(AWEI),' ',np.min(AWEI))
+#проверка
