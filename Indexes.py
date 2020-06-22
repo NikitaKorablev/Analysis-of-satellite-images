@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 
 def histogram (array, bins):
     hist = np.zeros(bins)
-    hist_min = []
-    sum_per = 0
+#    hist_min = []
+#    sum_per = 0
     hmin = np.min(array)
     hmax = np.max(array)
     step = (hmax - hmin)/(bins-1)
@@ -25,23 +25,40 @@ def histogram (array, bins):
     plt.show()
 # восходящая с минимумом
     
-    sum = np.sum(hist)
-    procent = sum*0.05   
+    s = np.sum(hist)
+    procent = int(s*0.05)
+    print (procent, ' ', len(hist))
+    plus = 0
     
-    for n in hist:
-        sum_per += n
-        if sum_per > procent:
-            sum_per = float(sum_per)
-            hist_min.append(sum_per)
+    for i in range (0, len(hist)):
+        plus += hist[i]
+        if plus >= procent:
+            print (i)
+            hist = hist[(i-1):]
+            break
     
-    plt.plot(hist_min)
+    plus = 0
+    for i in range (0, len(hist)):
+        m = i-len(hist)
+        plus += hist[m]
+        if plus >= procent:
+            print (m)
+            hist = hist[:m]
+            break
+#    for n in hist:
+#        sum_per += n
+#        if sum_per > procent:
+#            sum_per = float(sum_per)
+#            hist_min.append(sum_per)
+
+    plt.plot(hist)
     plt.show()
     
     return hist
 
 
     
-folder = r'D:\for_python_scripts\Nizni_chanels\Landsat_B'
+folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\23-JUN\REFLECTANCE\Landsat_B'
 b1 = np.load(folder + '1.npy')
 b2 = np.load(folder + '2.npy')
 #b3 = np.load(folder + '3.npy')
@@ -69,8 +86,8 @@ a = b2 - b5
 b = b2 + b5
 b[b == 0] = 1
 MNDWI = np.divide(a,b)
-h1 = histogram(MNDWI, 100)
 print (np.max(MNDWI),' ',np.min(MNDWI))
+h1 = histogram(MNDWI, 100)
 
 
 """ NDWI = (Blue − Red)/(Blue + Red) """
@@ -78,20 +95,20 @@ a = b2 - b4
 b = b2 + b4
 b[b == 0] = 1
 NDWI = np.divide(a,b)
-h2 = histogram(NDWI, 100)
 print (np.max(NDWI),' ',np.min(NDWI))
+h2 = histogram(NDWI, 100)
 
 
 """ AWEInsh = 4*(Blue - Near) - (0.25*Red + 2.75*SWIR2) """
 AWEInsh = 4*(b2 - b5) - (0.25*b4 + 2.75*b7)
-h3 = histogram(AWEInsh, 100)
 print (np.max(AWEInsh),' ',np.min(AWEInsh))
+h3 = histogram(AWEInsh, 100)
 
 
 """ AWEIsh = CA + 2.5*Blue - 1.5*(Red + Near) - 0.25*SWIR2 """
 AWEIsh = b1 + 2.5*b2 - 1.5*(b4 + b5) - 0.25*b7
-h4 = histogram(AWEIsh, 100)
 print (np.max(AWEIsh),' ',np.min(AWEIsh))
+h4 = histogram(AWEIsh, 100)
 
 
 
