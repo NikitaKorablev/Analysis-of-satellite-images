@@ -8,23 +8,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def histogram (array, bins):
+def histogram (array, bins, hmin, hmax):
     hist = np.zeros(bins)
-#    hist_min = []
-#    sum_per = 0
-    hmin = np.min(array)
-    hmax = np.max(array)
     step = (hmax - hmin)/(bins-1)
     for i in range (0, array.shape[0]):
         for m in range (0, array.shape[1]):
             indx = int((array[i,m] - hmin)//step)
             hist[indx] = hist[indx]+1
-#    plt.hist(hist, density=False, bins=200)
                   
     plt.plot(hist)
     plt.show()
-# восходящая с минимумом
-    
+    return hist
+
+def obrez (hist):  
+    sum_per = 0 
+    hist_vos = []
     sum = np.sum(hist)
     procent = int(sum*0.05)
     print (procent, ' ', len(hist))
@@ -33,37 +31,32 @@ def histogram (array, bins):
     for i in range (0, len(hist)):
         plus += hist[i]
         if plus >= procent:
-            print (i)
-            hist = hist[(i-1):]
+            misha = i
+            print (misha)
             break
     
     plus = 0
     
     hist = hist[::-1]
     
-    for i in range (0, len(hist)):
+    for i in range (misha, len(hist)):
         plus += hist[i]
         if plus >= procent:
-            print (i)
-            hist = hist[(i-1):]
+            maximum = len(hist) - i + 1
+            print (maximum)
             break
 
     hist = hist[::-1]  
     
-#    for i in range (0, len(hist)):
-#        m = len(hist)-i
-#        plus += hist[m]
-#        if plus >= procent:
-#            print (m)
-#            hist = hist[:m]
-#            break
-#    for n in hist:
-#        sum_per += n
-#        if sum_per > procent:
-#            sum_per = float(sum_per)
-#            hist_min.append(sum_per)
-
     plt.plot(hist)
+    plt.show()
+    
+    for n in hist:
+        sum_per += n
+        sum_per = float(sum_per)
+        hist_vos.append(sum_per)
+
+    plt.plot(hist_vos)
     plt.show()
     
     return hist
@@ -99,7 +92,10 @@ b = b2 + b5
 b[b == 0] = 1
 MNDWI = np.divide(a,b)
 print (np.max(MNDWI),' ',np.min(MNDWI))
-h1 = histogram(MNDWI, 100)
+plt.title("MNDWI")
+h1 = histogram(MNDWI, 100, np.min(MNDWI), np.max(MNDWI))
+h1_v2 = obrez(h1)
+print(h1_v2)
 
 
 """ NDWI = (Blue − Red)/(Blue + Red) """
@@ -108,19 +104,25 @@ b = b2 + b4
 b[b == 0] = 1
 NDWI = np.divide(a,b)
 print (np.max(NDWI),' ',np.min(NDWI))
-h2 = histogram(NDWI, 100)
+plt.title("NDWI")
+h2 = histogram(NDWI, 100, np.min(NDWI), np.max(NDWI))
+
 
 
 """ AWEInsh = 4*(Blue - Near) - (0.25*Red + 2.75*SWIR2) """
 AWEInsh = 4*(b2 - b5) - (0.25*b4 + 2.75*b7)
 print (np.max(AWEInsh),' ',np.min(AWEInsh))
-h3 = histogram(AWEInsh, 100)
+plt.title("AWEInsh")
+h3 = histogram(AWEInsh, 100, np.min(AWEInsh), np.max(AWEInsh))
+
 
 
 """ AWEIsh = CA + 2.5*Blue - 1.5*(Red + Near) - 0.25*SWIR2 """
 AWEIsh = b1 + 2.5*b2 - 1.5*(b4 + b5) - 0.25*b7
 print (np.max(AWEIsh),' ',np.min(AWEIsh))
-h4 = histogram(AWEIsh, 100)
+plt.title("AWEIsh")
+h4 = histogram(AWEIsh, 100, np.min(AWEIsh), np.max(AWEIsh))
+
 
 
 
