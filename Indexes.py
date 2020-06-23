@@ -25,8 +25,8 @@ def histogram (array, bins):
     plt.show()
 # восходящая с минимумом
     
-    s = np.sum(hist)
-    procent = int(s*0.05)
+    sum = np.sum(hist)
+    procent = int(sum*0.05)
     print (procent, ' ', len(hist))
     plus = 0
     
@@ -38,13 +38,25 @@ def histogram (array, bins):
             break
     
     plus = 0
+    
+    hist = hist[::-1]
+    
     for i in range (0, len(hist)):
-        m = i-len(hist)
-        plus += hist[m]
+        plus += hist[i]
         if plus >= procent:
-            print (m)
-            hist = hist[:m]
+            print (i)
+            hist = hist[(i-1):]
             break
+
+    hist = hist[::-1]  
+    
+#    for i in range (0, len(hist)):
+#        m = len(hist)-i
+#        plus += hist[m]
+#        if plus >= procent:
+#            print (m)
+#            hist = hist[:m]
+#            break
 #    for n in hist:
 #        sum_per += n
 #        if sum_per > procent:
@@ -58,7 +70,7 @@ def histogram (array, bins):
 
 
     
-folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\23-JUN\REFLECTANCE\Landsat_B'
+folder = r'D:\for_python_scripts\Nizni_chanels\Landsat_B'
 b1 = np.load(folder + '1.npy')
 b2 = np.load(folder + '2.npy')
 #b3 = np.load(folder + '3.npy')
