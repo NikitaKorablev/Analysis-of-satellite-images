@@ -21,41 +21,44 @@ def histogram (array, bins, hmin, hmax):
     return hist
 
 def obrez (hist):  
-    sum_per = 0 
-    hist_vos = []
+    mi_ma = []
+#    sum_per = 0 
+#    hist_vos = []
     sum = np.sum(hist)
-    procent = int(sum*0.05)
+    procent = int(sum*0.03)
     print (procent, ' ', len(hist))
     plus = 0
     for i in range (0, len(hist)):
         plus += hist[i]
         if plus >= procent:
-            misha = i-1
-            print (misha, ' ', hist[misha])
+            minimum = i
+            print (minimum, ' ', hist[minimum])
+            mi_ma.append(hist[minimum])
             break
-    
+        
     plus = 0
     hist = hist[::-1]
-    for i in range (misha, len(hist)):
+    for i in range (minimum, len(hist)):
         plus += hist[i]
         if plus >= procent:
-            maximum = len(hist) - i
+            maximum = len(hist) - i+1
             print (maximum, ' ', hist[maximum])
+            mi_ma.append(hist[maximum])            
             break
-
+    
     hist = hist[::-1]  
+
     plt.plot(hist)
     plt.show()
     
-    for n in hist:
-        sum_per += n
-        sum_per = float(sum_per)
-        hist_vos.append(sum_per)
-
-    plt.plot(hist_vos)
-    plt.show()
-    return hist
-
+#    for n in hist:
+#        sum_per += n
+#        sum_per = float(sum_per)
+#        hist_vos.append(sum_per)
+#
+#    plt.plot(hist_vos)
+#    plt.show()
+    return mi_ma
 
     
 folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\23-JUN\REFLECTANCE\Landsat_B'
@@ -89,7 +92,8 @@ MNDWI = np.divide(a,b)
 print (np.max(MNDWI),' ',np.min(MNDWI))
 plt.title("MNDWI")
 h1 = histogram(MNDWI, 100, np.min(MNDWI), np.max(MNDWI))
-h1_v2 = obrez(h1)
+mi_ma = obrez(h1)
+h1 = histogram(MNDWI, 100, mi_ma[0], mi_ma[1])
 
 
 
@@ -101,7 +105,8 @@ NDWI = np.divide(a,b)
 print (np.max(NDWI),' ',np.min(NDWI))
 plt.title("NDWI")
 h2 = histogram(NDWI, 100, np.min(NDWI), np.max(NDWI))
-h2_v2 = obrez(h2)
+mi_ma = obrez(h2)
+
 
 
 """ AWEInsh = 4*(Blue - Near) - (0.25*Red + 2.75*SWIR2) """
@@ -109,7 +114,8 @@ AWEInsh = 4*(b2 - b5) - (0.25*b4 + 2.75*b7)
 print (np.max(AWEInsh),' ',np.min(AWEInsh))
 plt.title("AWEInsh")
 h3 = histogram(AWEInsh, 100, np.min(AWEInsh), np.max(AWEInsh))
-h3_v2 = obrez(h3)
+mi_ma = obrez(h3)
+
 
 
 """ AWEIsh = CA + 2.5*Blue - 1.5*(Red + Near) - 0.25*SWIR2 """
@@ -117,7 +123,7 @@ AWEIsh = b1 + 2.5*b2 - 1.5*(b4 + b5) - 0.25*b7
 print (np.max(AWEIsh),' ',np.min(AWEIsh))
 plt.title("AWEIsh")
 h4 = histogram(AWEIsh, 100, np.min(AWEIsh), np.max(AWEIsh))
-h4_v2 = obrez(h4)
+mi_ma = obrez(h4)
 
 
 
