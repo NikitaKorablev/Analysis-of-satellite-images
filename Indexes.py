@@ -41,7 +41,7 @@ def obrez (hist):
     for i in range (minimum, len(hist)):
         plus += hist[i]
         if plus >= procent:
-            maximum = len(hist) - i+1
+            maximum = len(hist) - i
             print (maximum, ' ', hist[maximum])
             mi_ma.append(hist[maximum])            
             break
@@ -93,6 +93,7 @@ print (np.max(MNDWI),' ',np.min(MNDWI))
 plt.title("MNDWI")
 h1 = histogram(MNDWI, 100, np.min(MNDWI), np.max(MNDWI))
 mi_ma = obrez(h1)
+plt.title("MNDWI")
 h1 = histogram(MNDWI, 100, mi_ma[0], mi_ma[1])
 
 
