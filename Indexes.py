@@ -45,7 +45,7 @@ def obrez (hist, hmin, step):
     return (new_hmin, new_hmax)
     
     
-folder = r'D:\for_python_scripts\Nizni_chanels\Landsat_B'
+folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\23-JUN\REFLECTANCE\Landsat_B'
 b1 = np.load(folder + '1.npy')
 b2 = np.load(folder + '2.npy')
 #b3 = np.load(folder + '3.npy')
@@ -68,7 +68,9 @@ b7 = np.load(folder + '7.npy')
 #6 1.566–1.651 Shortwave NIR 1 (SWIR1)
 #7 2.107–2.294 Shortwave NIR 2 (SWIR2)
 
-bin_members = 300
+
+bin_members = 500
+
 
 """ MNDWI = (Blue − NIR)/(Blue + NIR) """
 a = b2 - b5
@@ -81,18 +83,25 @@ step_MNDWI = (max_MNDWI - min_MNDWI)/(bin_members-1)
 print (max_MNDWI,' ',min_MNDWI)
 plt.title("MNDWI")
 h1 = histogram(MNDWI, bin_members, min_MNDWI, max_MNDWI)
+summ = np.sum(h1)
+print (summ)
 
 new_border_h1 = obrez(h1, min_MNDWI, step_MNDWI) 
 h1_v2 = histogram(MNDWI, bin_members, new_border_h1[0], new_border_h1[1])
+summ = np.sum(h1_v2)
+print (summ)
 
 step = (new_border_h1[1] - new_border_h1[0]) / (bin_members-1)
 new_border_h1 = obrez(h1_v2, new_border_h1[0], step)
 h1_v3 = histogram(MNDWI, bin_members, new_border_h1[0], new_border_h1[1])
+summ = np.sum(h1_v3)
+print (summ)
 
 step = (new_border_h1[1] - new_border_h1[0]) / (bin_members-1)
-new_border_h1 = obrez(h1_v2, new_border_h1[0], step)
+new_border_h1 = obrez(h1_v3, new_border_h1[0], step)
 h1_v4 = histogram(MNDWI, bin_members, new_border_h1[0], new_border_h1[1])
-
+summ = np.sum(h1_v4)
+print (summ)
 
 
 #""" NDWI = (Blue − Red)/(Blue + Red) """
