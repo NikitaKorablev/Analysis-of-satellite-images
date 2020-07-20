@@ -27,9 +27,7 @@ def hist_min_max (array, bins, imin, imax, hmin, hmax):
     hist = np.zeros(bins)
     step = (hmax - hmin)/(bins-1)
     hmin += step*imin
-    hmax2 = hmax
-    hmax2 += step*imax
-    hmax = hmax2 - hmax
+    hmax -= step*(len(hist)-imax)
     print (step, ' ', hmin, ' ', hmax)
     for i in range (0, array.shape[0]):
         for m in range (0, array.shape[1]):
