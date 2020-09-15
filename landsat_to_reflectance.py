@@ -1,8 +1,8 @@
 import numpy as np
 import tifffile
 
-folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\23-JUN\LC08_L1TP_175021_20180623_20180703_01_T1_B'
-folder2 = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\23-JUN\LC08_L1TP_175021_20180623_20180703_01_T1_MTL.txt'
+folder = r'D:\images_work\testlandsat\normal\LC08_L1TP_135018_20190704_20190718_01_T1.tar\LC08_L1TP_135018_20190704_20190718_01_T1_B'
+folder2 = r'D:\images_work\testlandsat\normal\LC08_L1TP_135018_20190704_20190718_01_T1.tar\LC08_L1TP_135018_20190704_20190718_01_T1_MTL.txt'
 data={}
 
 with open(folder2) as file:
