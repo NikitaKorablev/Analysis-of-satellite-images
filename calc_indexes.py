@@ -6,6 +6,8 @@ Created on Tue Jul 21 18:36:11 2020
 """
 
 import numpy as np
+import gc
+
 
 #1 0.435–0.451 Coastal Aerosol (CA)
 #2 0.452–0.512 Blue
@@ -15,31 +17,131 @@ import numpy as np
 #6 1.566–1.651 Shortwave NIR 1 (SWIR1)
 #7 2.107–2.294 Shortwave NIR 2 (SWIR2)
 
-""" MNDWI = (Blue − NIR)/(Blue + NIR) """
-def getMNDWI(b2, b5):
+
+# b1 = np.load(folder + '1.npy')
+# b2 = np.load(folder + '2.npy')
+# b4 = np.load(folder + '4.npy')
+# b5 = np.load(folder + '5.npy')
+# b7 = np.load(folder + '7.npy')
+
+folder = r'E:\GIS\Fire_detection\result\Landsat_119041_20140807_20170420_B'
+
+
+def getfun (folder):
+    mas = []
+    
+    """ MNDWI = (Blue − NIR)/(Blue + NIR) """
+    b2 = np.load(folder + '2.npy')
+    b5 = np.load(folder + '5.npy')
     a = b2 - b5
     b = b2 + b5
     b[b == 0] = 1
     MNDWI = np.divide(a,b)
-    return MNDWI
-
-""" NDWI = (Blue − Red)/(Blue + Red) """
-def getNDWI(b2, b4):
+    mas.append(MNDWI)
+    
+    b2 = None
+    b5 = None
+    a = None
+    b = None
+    MNDWI = None
+    gc.collect()
+    
+    
+    """ AWEInsh = 4*(Blue - Near) - (0.25*Red + 2.75*SWIR2) """
+    b4 = np.load(folder + '4.npy')
+    b7 = np.load(folder + '7.npy')
+    c = 0.25*b4 + 2.75*b7
+    AWEInsh = 4*a - c
+    mas.append(AWEInsh)
+    
+    b4 = None
+    b7 = None
+    c = None
+    AWEInsh = None
+    gc.collect()
+    
+    
+    """ NDWI = (Blue − Red)/(Blue + Red) """
+    b2 = np.load(folder + '2.npy')
+    b4 = np.load(folder + '4.npy')
     a = b2 - b4
     b = b2 + b4
     b[b == 0] = 1
     NDWI = np.divide(a,b)
-    return NDWI
+    mas.append(NDWI)
+    
+    b2 = None
+    b4 = None
+    a = None
+    b = None
+    NDWI = None
+    gc.collect()
+    
+    """ AWEIsh = CA + 2.5*Blue - 1.5*(Red + Near) - 0.25*SWIR2 """
+    b4 = np.load(folder + '4.npy')
+    b5 = np.load(folder + '5.npy')
+    a = b4 + b5
+    
+    b4 = None
+    b5 = None
+    gc.collect()
+    
+    b1 = np.load(folder + '1.npy')
+    b2 = np.load(folder + '2.npy')
+    b = b1 + 2.5*b2
+    
+    b1 = None
+    b2 = None
+    gc.collect()
+    
+    b7 = np.load(folder + '7.npy')
+    
+    AWEIsh = b - 1.5*a - 0.25*b7
+    mas.append(AWEIsh)
+    
+    b7 = None
+    a = None
+    b = None
+    AWEIsh = None
+    gc.collect()
+    
+    return mas
 
-""" AWEInsh = 4*(Blue - Near) - (0.25*Red + 2.75*SWIR2) """
-def getAWEInsh(b2, b4, b5, b7):    
-    AWEInsh = 4*(b2 - b5) - (0.25*b4 + 2.75*b7)
-    return AWEInsh
 
-""" AWEIsh = CA + 2.5*Blue - 1.5*(Red + Near) - 0.25*SWIR2 """
-def getAWEIsh(b1, b2, b4, b5, b7):
-    AWEIsh = b1 + 2.5*b2 - 1.5*(b4 + b5) - 0.25*b7
-    return AWEIsh
+
+folder = r'E:\GIS\Fire_detection\result\Landsat_119041_20140807_20170420_B'
+
+
+f = getfun(folder)
+np.save('Landsat_B' + str(i+1), band)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
