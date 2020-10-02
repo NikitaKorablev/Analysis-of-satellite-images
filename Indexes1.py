@@ -68,24 +68,33 @@ bins = 100
 
 minMNDWI = np.min(MNDWI)
 maxMNDWI = np.max(MNDWI)
+
 print (minMNDWI,' ',maxMNDWI)
+
 plt.title("MNDWI")
+
 fMNDWI = MNDWI.ravel()
 print(fMNDWI.shape)
+
 h1 = np.histogram(fMNDWI, bins)
 print(h1[0].shape)
 # h1 = histogram(MNDWI, bins, minMNDWI, maxMNDWI)
 plt.plot(h1[0])
 plt.show()
+
+
 minimum, maximum = obrez(h1[0], minMNDWI, maxMNDWI, 0.01)
 print(minimum, maximum)
 h2 = np.histogram(fMNDWI, bins,( minimum, maximum))
+
 plt.title("MNDWI h2")
 plt.plot(h2[0])
 plt.show()
 
+
 minimum, maximum = obrez(h2[0], minimum, maximum, 0.01)
 h3 = np.histogram(fMNDWI, bins,( minimum, maximum))
+
 plt.title("MNDWI h3")
 plt.plot(h3[0])
 plt.show()
@@ -93,21 +102,27 @@ plt.show()
 
 minimum, maximum = obrez(h3[0], minimum, maximum, 0.01)
 h4 = np.histogram(fMNDWI, bins,( minimum, maximum))
+
 plt.title("MNDWI h4")
 plt.plot(h4[0])
 plt.show()
 
+
 minimum, maximum = obrez(h4[0], minimum, maximum, 0.01)
 h5 = np.histogram(fMNDWI, bins,( minimum, maximum))
+
 plt.title("MNDWI h5")
 plt.plot(h5[0])
 plt.show()
 
+
 minimum, maximum = obrez(h5[0], minimum, maximum, 0.01)
 h6 = np.histogram(fMNDWI, bins,( minimum, maximum))
+
 plt.title("MNDWI h6")
 plt.plot(h6[0])
 plt.show()
+
 
 # print (np.max(NDWI),' ',np.min(NDWI))
 # plt.title("NDWI")
