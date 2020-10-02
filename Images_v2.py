@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import gc
 from calc_indexes import *
 
-folder = r'D:\indexes\Landsat_B'
+folder = r'D:\NOU2020\EarthExplorer\nnovgorod\reflectance\Landsat_B'
 b1 = np.load(folder + '1.npy')
 b2 = np.load(folder + '2.npy')
 b4 = np.load(folder + '4.npy')

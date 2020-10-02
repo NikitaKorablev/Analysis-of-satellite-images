@@ -46,7 +46,7 @@ def obrez (hist, minHist, maxHist, percent):
     return minimum, maximum
 
     
-folder = r'E:\GIS\Fire_detection\result\Landsat_119041_20140807_20170420_B'
+folder = r'D:\NOU2020\EarthExplorer\nnovgorod\reflectance\Landsat_B'
 b1 = np.load(folder + '1.npy')
 b2 = np.load(folder + '2.npy')
 b4 = np.load(folder + '4.npy')
