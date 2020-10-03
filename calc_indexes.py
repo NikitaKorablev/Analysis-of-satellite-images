@@ -35,13 +35,12 @@ def getfun (folder):
     b[b == 0] = 1
     MNDWI = np.divide(a,b)
     mas.append(MNDWI)
-    
+
     b2 = None
     b5 = None
     b = None
     MNDWI = None
     gc.collect()
-    
     print ("complite")
     
     """ AWEInsh = 4*(Blue - Near) - (0.25*Red + 2.75*SWIR2) """
@@ -61,7 +60,6 @@ def getfun (folder):
     
     print ("complite")
 
-    
     """ NDWI = (Blue − Red)/(Blue + Red) """
     print ("NDWI:", end=' ')
     b2 = np.load(folder + '2.npy')
@@ -81,7 +79,6 @@ def getfun (folder):
     
     print ("complite")
 
-    
     """ AWEIsh = CA + 2.5*Blue - 1.5*(Red + Near) - 0.25*SWIR2 """
     print ("AWEIsh:", end=' ')
     b4 = np.load(folder + '4.npy')
@@ -104,6 +101,7 @@ def getfun (folder):
     
     AWEIsh = b - 1.5*a - 0.25*b7
     mas.append(AWEIsh)
+
     
     b7 = None
     a = None
@@ -121,7 +119,7 @@ def getfun (folder):
 folder = r'D:\NOU2020\EarthExplorer\nnovgorod\reflectance\Landsat_B'
 
 f = getfun(folder)
-np.save('Landsat_1', f)
+np.save('Landsat_function', f)
 
 
 
