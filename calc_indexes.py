@@ -24,13 +24,10 @@ import gc
 # b5 = np.load(folder + '5.npy')
 # b7 = np.load(folder + '7.npy')
 
-folder = r'E:\GIS\Fire_detection\result\Landsat_119041_20140807_20170420_B'
-
-
 def getfun (folder):
     mas = []
-    
     """ MNDWI = (Blue − NIR)/(Blue + NIR) """
+    print ("MNDWI:", end=' ')
     b2 = np.load(folder + '2.npy')
     b5 = np.load(folder + '5.npy')
     a = b2 - b5
@@ -41,13 +38,14 @@ def getfun (folder):
     
     b2 = None
     b5 = None
-    a = None
     b = None
     MNDWI = None
     gc.collect()
     
+    print ("complite")
     
     """ AWEInsh = 4*(Blue - Near) - (0.25*Red + 2.75*SWIR2) """
+    print ("AWEInsh:", end=' ')
     b4 = np.load(folder + '4.npy')
     b7 = np.load(folder + '7.npy')
     c = 0.25*b4 + 2.75*b7
@@ -56,12 +54,16 @@ def getfun (folder):
     
     b4 = None
     b7 = None
+    a = None
     c = None
     AWEInsh = None
     gc.collect()
     
+    print ("complite")
+
     
     """ NDWI = (Blue − Red)/(Blue + Red) """
+    print ("NDWI:", end=' ')
     b2 = np.load(folder + '2.npy')
     b4 = np.load(folder + '4.npy')
     a = b2 - b4
@@ -77,7 +79,11 @@ def getfun (folder):
     NDWI = None
     gc.collect()
     
+    print ("complite")
+
+    
     """ AWEIsh = CA + 2.5*Blue - 1.5*(Red + Near) - 0.25*SWIR2 """
+    print ("AWEIsh:", end=' ')
     b4 = np.load(folder + '4.npy')
     b5 = np.load(folder + '5.npy')
     a = b4 + b5
@@ -104,39 +110,18 @@ def getfun (folder):
     b = None
     AWEIsh = None
     gc.collect()
+
+    print ("complite")
+
     
     return mas
 
 
 
-folder = r'E:\GIS\Fire_detection\result\Landsat_119041_20140807_20170420_B'
-
+folder = r'D:\NOU2020\EarthExplorer\nnovgorod\reflectance\Landsat_B'
 
 f = getfun(folder)
-np.save('Landsat_B' + str(i+1), band)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+np.save('Landsat_1', f)
 
 
 
