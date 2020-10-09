@@ -116,13 +116,6 @@ def getfun (folder):
 
 
 
-folder = r'D:\NOU2020\EarthExplorer\nnovgorod\reflectance\Landsat_B'
-
-f = getfun(folder)
-np.save('Landsat_function', f)
-
-
-
 
 
 
