@@ -5,7 +5,7 @@ Created on Fri Oct  9 18:00:09 2020
 @author: 1
 """
 import numpy as np
-from landsat_to_reflectance import l_to_r
+# from landsat_to_reflectance import l_to_r
 from calc_indexes import getfun
 
 
@@ -14,11 +14,11 @@ lr_out = r'D:\images_work\testlandsat\normal\LC08_L1TP_135018_20190704_20190718_
 gf = r'D:\NOU2020\EarthExplorer\nnovgorod\reflectance\Landsat_B'
 
 
-l_to_r(lr_in, lr_out)
+# l_to_r(lr_in, lr_out)
 
 
 f = getfun(gf)
-np.save('Landsat_function', f)
+
 
 
 

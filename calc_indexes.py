@@ -25,7 +25,6 @@ import gc
 # b7 = np.load(folder + '7.npy')
 
 def getfun (folder):
-    mas = []
     """ MNDWI = (Blue − NIR)/(Blue + NIR) """
     print ("MNDWI:", end=' ')
     b2 = np.load(folder + '2.npy')
@@ -34,7 +33,7 @@ def getfun (folder):
     b = b2 + b5
     b[b == 0] = 1
     MNDWI = np.divide(a,b)
-    mas.append(MNDWI)
+    np.save('MNDWI', MNDWI)
 
     b2 = None
     b5 = None
@@ -49,7 +48,7 @@ def getfun (folder):
     b7 = np.load(folder + '7.npy')
     c = 0.25*b4 + 2.75*b7
     AWEInsh = 4*a - c
-    mas.append(AWEInsh)
+    np.save('AWEInsh', AWEInsh)
     
     b4 = None
     b7 = None
@@ -68,7 +67,7 @@ def getfun (folder):
     b = b2 + b4
     b[b == 0] = 1
     NDWI = np.divide(a,b)
-    mas.append(NDWI)
+    np.save('NDWI', NDWI)
     
     b2 = None
     b4 = None
@@ -100,7 +99,7 @@ def getfun (folder):
     b7 = np.load(folder + '7.npy')
     
     AWEIsh = b - 1.5*a - 0.25*b7
-    mas.append(AWEIsh)
+    np.save('AWEIsh', AWEIsh)
 
     
     b7 = None
@@ -110,9 +109,6 @@ def getfun (folder):
     gc.collect()
 
     print ("complite")
-
-    
-    return mas
 
 
 
