@@ -101,6 +101,13 @@ folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\11-SEP\NDWI.npy'
 t = 'NDWI'
 NDWI = np.load(folder)
 f_index_1 = hist1(NDWI, bins, t)
+
+plt.figure(figsize=(20,10))
+plt.title("NDWI")
+plt.imshow(NDWI, 'Greys')
+plt.show()
+
+
 # b = f_index_1[0][317:320]
 # plt.title('NDWI_2')
 # plt.plot(b)
@@ -131,20 +138,22 @@ NDWI = None
 gc.collect()
 
 
-
+print()
 
 folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\11-SEP\AWEIsh.npy'
 t = 'AWEIsh'
 AWEIsh = np.load(folder)
 f_index_1 = hist1(AWEIsh, bins, t)
 
+plt.figure(figsize=(20,10))
 plt.title("AWEIsh")
 plt.imshow(AWEIsh, 'Greys')
-
-b = f_index_1[0][317:320]
-plt.title('AWEIsh_2')
-plt.plot(b)
 plt.show()
+
+# b = f_index_1[0][317:320]
+# plt.title('AWEIsh_2')
+# plt.plot(b)
+# plt.show()
 
 print(f_index_1[1])
 print(AWEIsh.min())
