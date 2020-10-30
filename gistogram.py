@@ -138,8 +138,11 @@ NDWI = None
 gc.collect()
 
 
-print()
 
+
+
+
+print()
 folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\11-SEP\AWEIsh.npy'
 t = 'AWEIsh'
 AWEIsh = np.load(folder)
