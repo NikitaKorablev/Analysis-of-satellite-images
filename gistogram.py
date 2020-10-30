@@ -148,7 +148,7 @@ t = 'AWEIsh'
 AWEIsh = np.load(folder)
 f_index_1 = hist1(AWEIsh, bins, t)
 
-plt.figure(figsize=(20,10))
+
 plt.title("AWEIsh")
 plt.imshow(AWEIsh, 'Greys')
 plt.show()
