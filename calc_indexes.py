@@ -24,7 +24,7 @@ import gc
 # b5 = np.load(folder + '5.npy')
 # b7 = np.load(folder + '7.npy')
 
-def getfun (folder):
+def calcIndexes(folder):
     """ MNDWI = (Blue − NIR)/(Blue + NIR) """
     print ("MNDWI:", end=' ')
     b2 = np.load(folder + '2.npy')
