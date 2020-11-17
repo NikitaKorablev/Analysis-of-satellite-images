@@ -12,6 +12,7 @@ def l_to_r (folder, folder2):
     sun = float(data['SUN_ELEVATION'][1])
             
     for  i in range(9):
+        print('Image №', i+1, ': ', end = '')
         image = tifffile.imread(folder + str(i+1)+'.tif', key=0)
         arr = np.array(image)
         Mult = float(data['REFLECTANCE_MULT_BAND_'+str(i+1)][1])
@@ -20,7 +21,7 @@ def l_to_r (folder, folder2):
         s = c/np.sin(sun)
         band = np.array(s)
         np.save('Landsat_B' + str(i+1), band)
-
+        print('complite')
 
  
 

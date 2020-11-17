@@ -8,93 +8,239 @@ Created on Tue Oct 13 17:47:04 2020
 import numpy as np
 import matplotlib.pyplot as plt
 import gc
-from showIndexes import showNPY
 
-def showHist(index, name):
-    bins = 2000
+def hist1 (index, bins, name):
+    
+    plt.title(name + '_gist')
+    
     f_index = index.ravel()
-    h1 = np.histogram(f_index, bins)
-    print(name, f_index.shape)
-    plt.title(name)
-    plt.plot(h1[0])
-    plt.show()
-
-def showArr(arr, name):
-    plt.title(name)
-    plt.plot(arr)
-    plt.show()
+    print('f_index.shape: ', f_index.shape)
     
-def calcIncreasingHist(index, bins):
-    f_index = index.ravel()
-    h = np.histogram(f_index, bins)
-    inch = np.zeros(h[0].shape)
-    inch[h[0].shape[0] - 1] = h[0][h[0].shape[0] - 1]
-    for i in range(h[0].shape[0] - 2, -1, -1):
-        inch[i] = h[0][i] + inch[i + 1]
-    return (inch, h[1])
-
-def findT(inch, water_pixels):
-    t = -1
-    for i in range(inch[0].shape[0] - 1, -1, -1):
-        if(inch[0][i] == water_pixels):
-            t = inch[1][i]
-            break
-        if(inch[0][i] > water_pixels):
-            t = (inch[1][i] + inch[1][i + 1]) / 2
-            break
-    return t
-
-def hists (folder):
-    bins = 5000
-    
-    MNDWI   = np.load(folder + '/MNDWI.npy')
-    mndwi_h = calcIncreasingHist(MNDWI, bins)
-    showArr(mndwi_h[0], "MNDWI")
-    
-    print("TOTAL", MNDWI.shape[0] * MNDWI.shape[1])
-    
-    NDWI    = np.load(folder + '/NDWI.npy')
-    ndwi_h  = calcIncreasingHist(NDWI, bins)
-    showArr(ndwi_h[0], "NDWI")
-    
-    AWEInsh = np.load(folder + '/AWEInsh.npy')
-    aweinsh_h = calcIncreasingHist(AWEInsh, bins)
-    showArr(aweinsh_h[0], "AWEInsh")
-    
-    AWEIsh  = np.load(folder + '/AWEIsh.npy')
-    aweish_h = calcIncreasingHist(AWEIsh, bins)
-    showArr(aweish_h[0], "AWEIsh")
-    
-    MNDWI = None
-    NDWI = None
-    AWEInsh = None
-    AWEIsh = None
+    index = None
     gc.collect()
     
+    h1 = np.histogram(f_index, bins)
+    print('shape: ', h1[0].shape)
+    plt.plot(h1[0])
+    plt.show()
     
-    ndwi_t = 0.3877
-    ndwi_idx = -1
-    for i in range(ndwi_h[1].shape[0] - 1, -1, -1):
-        if(ndwi_h[1][i] < ndwi_t):
-            ndwi_idx = i + 1
-            break
+    print('h[0].shape: ', h1[0].shape)
+    print('h[1].shape: ', h1[1].shape)
+    print(type(h1))
     
-    ndwi_water = ndwi_h[0][i]
-    print("NDWI WATER", ndwi_water)
+    return h1
     
-    mndwi_t   = findT(mndwi_h, ndwi_water)
-    aweinsh_t = findT(aweinsh_h, ndwi_water)
-    aweish_t  = findT(aweish_h, ndwi_water)
+def hist2 (f, bins, name):
     
-    print("MNDWI THRESHOLD", mndwi_t)
-    print("AWEInsh THRESHOLD", aweinsh_t)
-    print("AWEIsh THRESHOLD", aweish_t)
+    result = np.zeros((bins))
+    print('f[0].shape: ', f[0].shape)
+    for i in range(0, bins):
+        result[i] = (sum(f[0][:i]))
+    
+    edges = np.array(f[1])
+    # result[0] = result
+    
+    plt.title(name)
+    plt.plot(result)
+    plt.show()
+    
+    return (result, edges)
 
-    showNPY(folder, mndwi_t, ndwi_t, aweinsh_t, aweish_t)
 
+# def obrez (f_index, bins):
+#     s = 0
+#     k = (sum(f_index)/100)*5
+#     print(k)
+#     for i in range(0, bins):   
+#         s += f_index[i]
+#         if s>= k:
+#             print('i_min: ', i)
+#             f_index = f_index[i:]
+#             break
+#     s = 0
+#     print(s)
+#     for i in range(0, bins, -1):
+#         s += f_index[i]
+#         print('i: ', i, ' s: ', s)
+#         if s>= k:
+#             print('i_max: ', i)
+#             f_index = f_index[i:]
+#             break
     
+#     return f_index
+
+bins = 2000
+
+name = 'D:/NOU2020/EarthExplorer/nnovgorod/2018/23-JUN'
 
 
+'''  -----MNDWI-----  '''
+print('  -----  MNDWI  -----  ')
+folder = name + r'/MNDWI.npy'
+t = 'MNDWI'
+MNDWI = np.load(folder)
+f_index_1 = hist1(MNDWI, bins, t)
+
+plt.figure(figsize=(20,10))
+plt.title("MNDWI")
+plt.imshow(MNDWI, 'Greys')
+plt.show()
+
+# b = f_index_1[0][245:265]
+# plt.title('MNDWI_2')
+# plt.plot(b)
+# plt.show()
+
+print('MNDWI.min(): ', MNDWI.min())
+
+t = 'MNDWI_stair'
+f_index_2 = hist2(f_index_1, bins, t)
+
+print('f_index_2[1]: ', f_index_2[1])
+
+for i in range (0, bins):
+    if f_index_2[1][i] >= 0.18:
+        break
+
+print('i: ', i)
+
+print('f_index_2[0][i]: ', f_index_2[0][i])
+
+print('water percent area: ', 100*(f_index_2[0][i])/(MNDWI.shape[0]*MNDWI.shape[1]))
+
+f_index_1 = None
+f_index_2 = None
+MNDWI = None
+gc.collect()
+print()
+
+
+
+'''  -----AWEInsh-----  '''
+print('  -----  AWEInsh  -----  ')
+folder = name + r'/AWEInsh.npy'
+t = 'AWEInsh'
+AWEInsh = np.load(folder)
+f_index_1 = hist1(AWEInsh, bins, t)
+
+plt.figure(figsize=(20,10))
+plt.title("AWEInsh")
+plt.imshow(AWEInsh, 'Greys')
+plt.show()
+
+# b = f_index_1[0][203:310]
+# plt.title('AWEInsh_2')
+# plt.plot(b)
+# plt.show()
+
+print('AWEInsh.min(): ', AWEInsh.min())
+
+t = 'AWEInsh_stair'
+f_index_2 = hist2(f_index_1, bins, t)
+
+print('f_index_2[1]: ', f_index_2[1])
+
+for i in range (0, bins):
+    if f_index_2[1][i] >= 0.16:
+        break
+
+print('i: ', i)
+
+print('f_index_2[0][i]: ', f_index_2[0][i])
+
+print('water percent area: ', 100*(f_index_2[0][i])/(AWEInsh.shape[0]*AWEInsh.shape[1]))
+
+f_index_1 = None
+f_index_2 = None
+AWEInsh = None
+gc.collect()
+print()
+
+
+
+'''  -----NDWI-----  '''
+print('  -----  NDWI  -----  ')
+folder = name + r'/NDWI.npy'
+t = 'NDWI'
+NDWI = np.load(folder)
+f_index_1 = hist1(NDWI, bins, t)
+
+plt.figure(figsize=(20,10))
+plt.title("NDWI")
+plt.imshow(NDWI, 'Greys')
+plt.show()
+
+# b = f_index_1[0][317:320]
+# plt.title('NDWI_2')
+# plt.plot(b)
+# plt.show()
+
+# print(f_index_1[1])
+print('NDWI.min(): ', NDWI.min())
+
+t = 'NDWI_stair'
+f_index_2 = hist2(f_index_1, bins, t)
+
+print('f_index_2[1]: ', f_index_2[1])
+
+for i in range (0, bins):
+    if f_index_2[1][i] >= 0.18:
+        break
+
+print('i: ', i)
+
+print('f_index_2[0][i]: ', f_index_2[0][i])
+
+print('water percent area: ', 100*(f_index_2[0][i])/(NDWI.shape[0]*NDWI.shape[1]))
+
+f_index_1 = None
+f_index_2 = None
+NDWI = None
+gc.collect()
+print()
+
+
+
+'''  -----AWEIsh-----  '''
+print('  -----  AWEIsh  -----  ')
+folder = name + r'/AWEIsh.npy'
+t = 'AWEIsh'
+AWEIsh = np.load(folder)
+f_index_1 = hist1(AWEIsh, bins, t)
+
+plt.figure(figsize=(20,10))
+plt.title("AWEIsh")
+plt.imshow(AWEIsh, 'Greys')
+plt.show()
+
+# b = f_index_1[0][317:320]
+# plt.title('AWEIsh_2')
+# plt.plot(b)
+# plt.show()
+
+# print(f_index_1[1])
+print('AWEIsh.min(): ', AWEIsh.min())
+
+t = 'AWEIsh_stair'
+f_index_2 = hist2(f_index_1, bins, t)
+
+print('f_index_2[1]: ', f_index_2[1])
+
+for i in range (0, bins):
+    if f_index_2[1][i] >= 0.16:
+        break
+
+print('i: ', i)
+
+print('f_index_2[0][i]: ', f_index_2[0][i])
+
+print('water percent area: ', 100*(f_index_2[0][i])/(AWEIsh.shape[0]*AWEIsh.shape[1]))
+
+
+f_index_1 = None
+f_index_2 = None
+AWEIsh = None
+gc.collect()
 
 
 
