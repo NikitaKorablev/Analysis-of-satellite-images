@@ -47,32 +47,10 @@ def hist2 (f, bins, name):
     return (result, edges)
 
 
-# def obrez (f_index, bins):
-#     s = 0
-#     k = (sum(f_index)/100)*5
-#     print(k)
-#     for i in range(0, bins):   
-#         s += f_index[i]
-#         if s>= k:
-#             print('i_min: ', i)
-#             f_index = f_index[i:]
-#             break
-#     s = 0
-#     print(s)
-#     for i in range(0, bins, -1):
-#         s += f_index[i]
-#         print('i: ', i, ' s: ', s)
-#         if s>= k:
-#             print('i_max: ', i)
-#             f_index = f_index[i:]
-#             break
-    
-#     return f_index
-
 bins = 2000
 
-name = 'D:/NOU2020/EarthExplorer/nnovgorod/2018/23-JUN'
-
+# name = 'D:/NOU2020/EarthExplorer/nnovgorod/2018/23-JUN'
+name = 'D:/NOU2020/EarthExplorer/nnovgorod/2018/26-AUG'
 
 '''  -----MNDWI-----  '''
 print('  -----  MNDWI  -----  ')
