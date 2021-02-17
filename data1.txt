@@ -41,10 +41,28 @@ f_index_2[0][i]:  12003866.0
 water percent area:  73.6723937915647
 
 
+						2019-13-AUG
 
 
+  -----  MNDWI  -----  
+i:  1014
+f_index_2[0][i]:  16134030.0
+water percent area:  98.9946848899013
 
+  -----  AWEInsh  -----  
+i:  1912
+f_index_2[0][i]:  16124554.0
+water percent area:  98.93654234064257
 
+  -----  NDWI  -----  
+i:  1624
+f_index_2[0][i]:  1906047.0
+water percent area:  11.695064540622628
+
+  -----  AWEIsh  -----  
+i:  1711
+f_index_2[0][i]:  16000749.0
+water percent area:  98.17690343066197
 
 
 

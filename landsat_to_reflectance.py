@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def l_to_r (folder, folder2):
+def l_to_r (folder, folder2, save):
     data = {}
     with open(folder2) as file:
         for line in file:
@@ -19,7 +19,7 @@ def l_to_r (folder, folder2):
             c = arr*Mult + Add
             s = c/np.sin(sun)
             band = np.array(s)
-            np.save('Landsat_B' + str(i+1), band)
+            np.save(save + 'Landsat_B' + str(i+1), band)
             print('complite')
 
 

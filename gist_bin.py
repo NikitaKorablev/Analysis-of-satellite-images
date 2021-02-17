@@ -8,55 +8,56 @@ Created on Tue Oct 13 17:47:04 2020
 import numpy as np
 import matplotlib.pyplot as plt
 import gc
+from rout import rout as rt
 
 def hist1 (index, bins, name):
     
-    plt.title(name + '_gist')
+    # plt.title(name + '_gist')
     
     f_index = index.ravel()
-    print('f_index.shape: ', f_index.shape)
+    # print('f_index.shape: ', f_index.shape)
     
     index = None
     gc.collect()
     
     h1 = np.histogram(f_index, bins)
-    print('shape: ', h1[0].shape)
-    plt.plot(h1[0])
-    plt.show()
+    # print('shape: ', h1[0].shape)
+    # plt.plot(h1[0])
+    # plt.show()
     
-    print('h[0].shape: ', h1[0].shape)
-    print('h[1].shape: ', h1[1].shape)
-    print(type(h1))
+    # print('h[0].shape: ', h1[0].shape)
+    # print('h[1].shape: ', h1[1].shape)
+    # print(type(h1))
     
     return h1
     
 def hist2 (f, bins, name):
     
     result = np.zeros((bins))
-    print('f[0].shape: ', f[0].shape)
+    # print('f[0].shape: ', f[0].shape)
     for i in range(0, bins):
         result[i] = (sum(f[0][:i]))
     
     edges = np.array(f[1])
     # result[0] = result
     
-    plt.title(name)
-    plt.plot(result)
-    plt.show()
+    # plt.title(name)
+    # plt.plot(result)
+    # plt.show()
     
     return (result, edges)
 
 
 bins = 2000
 
-# name = 'D:/NOU2020/EarthExplorer/nnovgorod/2018/23-JUN'
-# name = 'D:/NOU2020/EarthExplorer/nnovgorod/2018/26-AUG'
-name = 'D:/NOU2020/EarthExplorer/nnovgorod/2019/13-AUG'
+name = rt()
+name = name[:name.find('\LC08')]
 
 
 '''  -----MNDWI-----  '''
 print('  -----  MNDWI  -----  ')
-folder = name + r'/MNDWI.npy'
+p = 0.18
+folder = name + '\MNDWI.npy'
 t = 'MNDWI'
 MNDWI = np.load(folder)
 f_index_1 = hist1(MNDWI, bins, t)
@@ -71,22 +72,41 @@ plt.show()
 # plt.plot(b)
 # plt.show()
 
-print('MNDWI.min(): ', MNDWI.min())
+# print('MNDWI.min(): ', MNDWI.min())
 
 t = 'MNDWI_stair'
 f_index_2 = hist2(f_index_1, bins, t)
 
-print('f_index_2[1]: ', f_index_2[1])
+# print('f_index_2[1]: ', f_index_2[1])
 
 for i in range (0, bins):
-    if f_index_2[1][i] >= 0.18:
+    if f_index_2[1][i] >= p:
         break
 
-print('i: ', i)
+# print('i: ', i)
 
-print('f_index_2[0][i]: ', f_index_2[0][i])
+# print('f_index_2[0][i]: ', f_index_2[0][i])
 
 print('water percent area: ', 100*(f_index_2[0][i])/(MNDWI.shape[0]*MNDWI.shape[1]))
+
+
+'''--------------------------------------------------------------------------------------------------'''
+mask = np.copy(MNDWI)
+print(mask.shape)
+print(type(mask))
+
+mask[mask < p] = 0
+mask[mask >= p] = 1
+
+plt.figure(figsize=(20,10))
+plt.title("mask_MNDWI")
+plt.imshow(mask, 'Greys')
+plt.show()
+
+save = folder[:folder.find('MNDWI')]
+np.save(save + "mask_MNDWI", mask)
+'''--------------------------------------------------------------------------------------------------'''
+
 
 f_index_1 = None
 f_index_2 = None
@@ -96,8 +116,10 @@ print()
 
 
 
+
 '''  -----AWEInsh-----  '''
 print('  -----  AWEInsh  -----  ')
+p = 0.16
 folder = name + r'/AWEInsh.npy'
 t = 'AWEInsh'
 AWEInsh = np.load(folder)
@@ -113,7 +135,7 @@ plt.show()
 # plt.plot(b)
 # plt.show()
 
-print('AWEInsh.min(): ', AWEInsh.min())
+# print('AWEInsh.min(): ', AWEInsh.min())
 
 t = 'AWEInsh_stair'
 f_index_2 = hist2(f_index_1, bins, t)
@@ -121,14 +143,33 @@ f_index_2 = hist2(f_index_1, bins, t)
 print('f_index_2[1]: ', f_index_2[1])
 
 for i in range (0, bins):
-    if f_index_2[1][i] >= 0.16:
+    if f_index_2[1][i] >= p:
         break
 
-print('i: ', i)
+# print('i: ', i)
 
-print('f_index_2[0][i]: ', f_index_2[0][i])
+# print('f_index_2[0][i]: ', f_index_2[0][i])
 
 print('water percent area: ', 100*(f_index_2[0][i])/(AWEInsh.shape[0]*AWEInsh.shape[1]))
+
+
+'''--------------------------------------------------------------------------------------------------'''
+mask = np.copy(AWEInsh)
+print(mask.shape)
+print(type(mask))
+
+mask[mask < p] = 0
+mask[mask >= p] = 1
+
+plt.figure(figsize=(20,10))
+plt.title("mask_AWEInsh")
+plt.imshow(mask, 'Greys')
+plt.show()
+
+save = folder[:folder.find('AWEInsh')]
+np.save(save + "mask_AWEInsh", mask)
+'''--------------------------------------------------------------------------------------------------'''
+
 
 f_index_1 = None
 f_index_2 = None
@@ -140,6 +181,7 @@ print()
 
 '''  -----NDWI-----  '''
 print('  -----  NDWI  -----  ')
+p = 0.18
 folder = name + r'/NDWI.npy'
 t = 'NDWI'
 NDWI = np.load(folder)
@@ -156,7 +198,7 @@ plt.show()
 # plt.show()
 
 # print(f_index_1[1])
-print('NDWI.min(): ', NDWI.min())
+# print('NDWI.min(): ', NDWI.min())
 
 t = 'NDWI_stair'
 f_index_2 = hist2(f_index_1, bins, t)
@@ -167,11 +209,30 @@ for i in range (0, bins):
     if f_index_2[1][i] >= 0.18:
         break
 
-print('i: ', i)
+# print('i: ', i)
 
-print('f_index_2[0][i]: ', f_index_2[0][i])
+# print('f_index_2[0][i]: ', f_index_2[0][i])
 
 print('water percent area: ', 100*(f_index_2[0][i])/(NDWI.shape[0]*NDWI.shape[1]))
+
+
+'''--------------------------------------------------------------------------------------------------'''
+mask = np.copy(NDWI)
+print(mask.shape)
+print(type(mask))
+
+mask[mask < p] = 0
+mask[mask >= p] = 1
+
+plt.figure(figsize=(20,10))
+plt.title("mask_NDWI")
+plt.imshow(mask, 'Greys')
+plt.show()
+
+save = folder[:folder.find('NDWI')]
+np.save(save + "mask_NDWI", mask)
+'''--------------------------------------------------------------------------------------------------'''
+
 
 f_index_1 = None
 f_index_2 = None
@@ -183,6 +244,7 @@ print()
 
 '''  -----AWEIsh-----  '''
 print('  -----  AWEIsh  -----  ')
+p = 0.16
 folder = name + r'/AWEIsh.npy'
 t = 'AWEIsh'
 AWEIsh = np.load(folder)
@@ -199,22 +261,40 @@ plt.show()
 # plt.show()
 
 # print(f_index_1[1])
-print('AWEIsh.min(): ', AWEIsh.min())
+# print('AWEIsh.min(): ', AWEIsh.min())
 
 t = 'AWEIsh_stair'
 f_index_2 = hist2(f_index_1, bins, t)
 
-print('f_index_2[1]: ', f_index_2[1])
+# print('f_index_2[1]: ', f_index_2[1])
 
 for i in range (0, bins):
     if f_index_2[1][i] >= 0.16:
         break
 
-print('i: ', i)
+# print('i: ', i)
 
-print('f_index_2[0][i]: ', f_index_2[0][i])
+# print('f_index_2[0][i]: ', f_index_2[0][i])
 
 print('water percent area: ', 100*(f_index_2[0][i])/(AWEIsh.shape[0]*AWEIsh.shape[1]))
+
+
+'''--------------------------------------------------------------------------------------------------'''
+mask = np.copy(AWEIsh)
+print(mask.shape)
+print(type(mask))
+
+mask[mask < p] = 0
+mask[mask >= p] = 1
+
+plt.figure(figsize=(20,10))
+plt.title("mask_AWEIsh")
+plt.imshow(mask, 'Greys')
+plt.show()
+
+save = folder[:folder.find('AWEIsh')]
+np.save(save + "mask_AWEIsh", mask)
+'''--------------------------------------------------------------------------------------------------'''
 
 
 f_index_1 = None

@@ -24,7 +24,7 @@ import gc
 # b5 = np.load(folder + '5.npy')
 # b7 = np.load(folder + '7.npy')
 
-def getfun (folder):
+def getfun (folder, save):
     # mask = np.load('D:/NOU2020/Scientific-work/mask.npy')
     """ MNDWI = (Blue − NIR)/(Blue + NIR) """
     print ("MNDWI:", end=' ')
@@ -35,7 +35,7 @@ def getfun (folder):
     b[b == 0] = 1
     MNDWI = np.divide(a,b)
     # np.putmask(MNDWI, mask, 0)
-    np.save('MNDWI', MNDWI)
+    np.save(save + 'MNDWI', MNDWI)
 
     b2 = None
     b5 = None
@@ -51,7 +51,7 @@ def getfun (folder):
     c = 0.25*b4 + 2.75*b7
     AWEInsh = 4*a - c
     # np.putmask(AWEInsh, mask, 0)
-    np.save('AWEInsh', AWEInsh)
+    np.save(save + 'AWEInsh', AWEInsh)
     
     b4 = None
     b7 = None
@@ -71,7 +71,7 @@ def getfun (folder):
     b[b == 0] = 1
     NDWI = np.divide(a,b)
     # np.putmask(NDWI, mask, 0)
-    np.save('NDWI', NDWI)
+    np.save(save + 'NDWI', NDWI)
     
     b2 = None
     b4 = None
@@ -104,7 +104,7 @@ def getfun (folder):
     
     AWEIsh = b - 1.5*a - 0.25*b7
     # np.putmask(AWEIsh, mask, 0)
-    np.save('AWEIsh', AWEIsh)
+    np.save(save + 'AWEIsh', AWEIsh)
 
     
     b7 = None

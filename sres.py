@@ -3,7 +3,7 @@ import tifffile
 import matplotlib.pyplot as plt
 import gc
 
-def sres(folder):    
+def sres(folder, save):    
     image = tifffile.imread(folder + str(1)+'.TIF', key=0)
     arr = np.array(image)
 
@@ -70,12 +70,12 @@ def sres(folder):
             
             band = np.array(band)
             
-            plt.figure(figsize=(20,10))
-            plt.title("Band" + str(j+1))
-            plt.imshow(band, 'Greys')
-            plt.show()
+            # plt.figure(figsize=(20,10))
+            # plt.title("Band" + str(j+1))
+            # plt.imshow(band, 'Greys')
+            # plt.show()
             
-            np.save("Band" + str(j+1), band)
+            np.save(save + "Band" + str(j+1), band)
             
             print('complite')
             

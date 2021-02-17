@@ -50,7 +50,8 @@ def hist2 (f, bins, name):
 bins = 2000
 
 # name = 'D:/NOU2020/EarthExplorer/nnovgorod/2018/23-JUN'
-name = 'D:/NOU2020/EarthExplorer/nnovgorod/2018/26-AUG'
+# name = 'D:/NOU2020/EarthExplorer/nnovgorod/2018/26-AUG'
+name = 'D:/NOU2020/EarthExplorer/nnovgorod/2019/13-AUG'
 
 
 
