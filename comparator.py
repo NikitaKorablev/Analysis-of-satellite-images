@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 import gc
 from rout import rout as rt
 from PIL import Image
+import os
 
-
-def TF(limit, f, name):
+def TF(limit, f, name, name_save, file):
     bul = np.zeros([f_1.shape[0], f_1.shape[1]])
     bul_i = np.zeros([f_1.shape[0], f_1.shape[1]])
     bul_i[f == limit] = True
@@ -25,15 +25,18 @@ def TF(limit, f, name):
     print('sum = ', sum(bul.ravel()))
     # print(f_1.shape[0] * f_1.shape[1])
     # print(sum(bul.ravel())/(f_1.shape[0] * f_1.shape[1]))
-    print('persent of ', name, '= ', str(per)[:5])
+    print('perсent of ' + name + ' = ', str(per)[:5])
     print()
+    
+    file.write('number of ' + name + 'cells: ' + str(sum(bul.ravel())) + '\n')
+    file.write('perсent of ' + name + ' = ' + str(per)[:5] + '\n'*2)
     
     bul = None
     bul_i = None
     gc.collect()
-
-
-def persent(f_1, f_2, name_mask):
+    
+    
+def perсent(f_1, f_2, name_mask, name_save):
     f1 = np.zeros([f_1.shape[0], f_1.shape[1]])
     f2 = np.zeros([f_1.shape[0], f_1.shape[1]])
     f1[f_1 == 1] = 3 #water
@@ -45,22 +48,44 @@ def persent(f_1, f_2, name_mask):
     
     f = f1 + f2
     
+    name_date = rt()
+    name_date = name_date[name_date.find('nnovgorod') + 10:name_date.find('\LC08')]
+    
+    s = '\ '
+    for i in range(len(name_date)):
+        if name_date[i] == s[0]:
+            name_date = name_date[:i] + '_' + name_date[i+1:]
+    
+    # print("Текущая деректория:", os.getcwd())
+    
+    os.chdir('Статистика')
+    
+    if not os.path.isdir(name_date):
+        os.mkdir(name_date)
+    
+    # print(os.getcwd())
+    
+    # print(os.getcwd() + s[0] + name_date + '\statistical_data_for_' + name_mask + '.txt')
+    
+    file = open(os.getcwd() + s[0] + name_date + '\statistical_data_for_' + name_mask + '.txt', 'w+')
+    
     name = 'water'
     limit = max(f1.ravel()) + max(f2.ravel())
-    TF(limit, f, name)
+    TF(limit, f, name, name_save, file)
     
     name = 'ground'
     limit = min(f1.ravel()) + min(f2.ravel())
-    TF(limit, f, name)
+    TF(limit, f, name, name_save, file)
     
     name = 'ground and water'
     limit = min(f1.ravel()) + max(f2.ravel())
-    TF(limit, f, name)
+    TF(limit, f, name, name_save, file)
     
     name = 'water and ground'
     limit = max(f1.ravel()) + min(f2.ravel())
-    TF(limit, f, name)
+    TF(limit, f, name, name_save, file)
     
+    file.close()
     
     '---------------------------------------------------------'
     mask[f == 18] = [0, 0, 255]  #water
@@ -69,6 +94,8 @@ def persent(f_1, f_2, name_mask):
     mask[f == 11] = [150, 255, 0] # 1 picture - water, 2 picture - ground
     
     mask = Image.fromarray(mask)
+    mask.save(os.getcwd() + s[0] + name_date+ s[0] + name_mask + '.jpeg')
+    
     mask = np.array(mask)
     
     plt.figure(figsize=(20,10))
@@ -76,11 +103,13 @@ def persent(f_1, f_2, name_mask):
     plt.imshow(mask)
     plt.show()
     
+    
     # plt.figure(figsize=(20,10))
     # plt.title("mask_2")
     # plt.imshow(mask_2, 'Spectral')
     # plt.show()
     '---------------------------------------------------------'
+    os.chdir('..')
     
     # f_r = f.ravel()
     # h = np.histogram(f_r, 100)
@@ -93,40 +122,49 @@ def persent(f_1, f_2, name_mask):
 
 
 
+'==================================================================================================='
+'==================================================================================================='
+'==================================================================================================='
 
 
+name_file = rt()
+name_file = name_file[:name_file.find('\LC08')]
 
-name = rt()
-name = name[:name.find('\LC08')]
+f1 = name_file + '\mask_MNDWI.npy'
+f2 = name_file + '\mask_NDWI.npy'
+f3 = name_file + '\mask_AWEInsh.npy'
+f4 = name_file + '\mask_AWEIsh.npy'
 
-f1 = name + '\mask_MNDWI.npy'
-f2 = name + '\mask_NDWI.npy'
-f3 = name + '\mask_AWEInsh.npy'
-f4 = name + '\mask_AWEIsh.npy'
+f_1 = np.load(f1)  #MNDWI
+f_2 = np.load(f2)  #NDWI
+f_3 = np.load(f3)  #AWEInsh
+f_4 = np.load(f4)  #AWEIsh
 
-f_1 = np.load(f1)
-f_2 = np.load(f2)
-f_3 = np.load(f3)
-f_4 = np.load(f4)
+name_save = r'D:\NOU2020\Scientific-work\Статистика'
 
+name_mask = 'MNDWI and NDWI'
+print(name_mask)
+perсent(f_1, f_2, name_mask, name_save)
 
-name = 'MNDWI and NDWI'
-print(name)
-persent(f_1, f_2, name)
+name_mask = 'AWEInsh and AWEIsh'
+print(name_mask)
+perсent(f_3, f_4, name_mask, name_save)
 
-name = 'AWEInsh and AWEIsh'
-print(name)
-persent(f_3, f_4, name)
+name_mask = 'NDWI and AWEInsh'
+print(name_mask)
+perсent(f_2, f_3, name_mask, name_save)
 
-name = 'NDWI and AWEInsh'
-print(name)
-persent(f_2, f_3, name)
+name_mask = 'MNDWI and AWEIsh'
+print(name_mask)
+perсent(f_1, f_4, name_mask, name_save)
 
-name = 'MNDWI and AWEIsh'
-print(name)
-persent(f_1, f_4, name)
+name_mask = 'NDWI and AWEIsh'
+print(name_mask)
+perсent(f_2, f_4, name_mask, name_save)
 
-
+name_mask = 'MNDWI and AWEInsh'
+print(name_mask)
+perсent(f_1, f_3, name_mask, name_save)
 
 
 

@@ -1,0 +1,12 @@
+number of watercells: 337609.0
+perñent of water = 1.895
+
+number of groundcells: 16061623.0
+perñent of ground = 90.18
+
+number of ground and watercells: 1263206.0
+perñent of ground and water = 7.092
+
+number of water and groundcells: 147007.0
+perñent of water and ground = 0.825
+
