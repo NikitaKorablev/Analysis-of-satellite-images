@@ -56,42 +56,43 @@ def perсent(f_1, f_2, name_mask, name_save):
         if name_date[i] == s[0]:
             name_date = name_date[:i] + '_' + name_date[i+1:]
     
-    # print("Текущая деректория:", os.getcwd())
+    print("Текущая деректория:", os.getcwd())
     
+    os.chdir('..')
     os.chdir('Статистика')
     
     if not os.path.isdir(name_date):
         os.mkdir(name_date)
     
-    # print(os.getcwd())
+    print("Текущая деректория:", os.getcwd())
     
     # print(os.getcwd() + s[0] + name_date + '\statistical_data_for_' + name_mask + '.txt')
     
     file = open(os.getcwd() + s[0] + name_date + '\statistical_data_for_' + name_mask + '.txt', 'w+')
     
     name = 'water'
-    limit = max(f1.ravel()) + max(f2.ravel())
+    limit = 18
     TF(limit, f, name, name_save, file)
     
     name = 'ground'
-    limit = min(f1.ravel()) + min(f2.ravel())
+    limit = 11
     TF(limit, f, name, name_save, file)
     
     name = 'ground and water'
-    limit = min(f1.ravel()) + max(f2.ravel())
+    limit = 16
     TF(limit, f, name, name_save, file)
     
     name = 'water and ground'
-    limit = max(f1.ravel()) + min(f2.ravel())
+    limit = 13
     TF(limit, f, name, name_save, file)
     
     file.close()
     
     '---------------------------------------------------------'
-    mask[f == 18] = [0, 0, 255]  #water
-    mask[f == 13] = [255, 90, 255] # ground
+    mask[f == 18] = [0, 0, 255]  # water
+    mask[f == 11] = [150, 255, 0] # ground
     mask[f == 16] = [255, 0, 0] # 1 picture - ground, 2 picture - water
-    mask[f == 11] = [150, 255, 0] # 1 picture - water, 2 picture - ground
+    mask[f == 13] = [255, 90, 255] # 1 picture - water, 2 picture - ground
     
     mask = Image.fromarray(mask)
     mask.save(os.getcwd() + s[0] + name_date+ s[0] + name_mask + '.jpeg')
@@ -109,7 +110,6 @@ def perсent(f_1, f_2, name_mask, name_save):
     # plt.imshow(mask_2, 'Spectral')
     # plt.show()
     '---------------------------------------------------------'
-    os.chdir('..')
     
     # f_r = f.ravel()
     # h = np.histogram(f_r, 100)
