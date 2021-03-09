@@ -53,8 +53,8 @@ import os
 # os.chdir('njnjn')
 # print(os.getcwd())
 
-name_date = rt()
-name_date = name_date[name_date.find('nnovgorod') + 10:name_date.find('\LC08')]
+# name_date = rt()
+# name_date = name_date[name_date.find('nnovgorod') + 10:name_date.find('\LC08')]
 
 # s = '\ '
 # for i in range(len(name_date)):
@@ -71,13 +71,22 @@ name_date = name_date[name_date.find('nnovgorod') + 10:name_date.find('\LC08')]
 # print(os.getcwd())
 
 
-a = os.getcwd()
-print(a)
-if a.find('Статистика') == False:
-    os.chdir('Статистика')
+# a = os.getcwd()
+# print(a)
+# if a.find('Статистика') == False:
+#     os.chdir('Статистика')
 
-print(os.getcwd())
+# print(os.getcwd())
 
+
+IV = r'D:\other\tress_project\districts\sovetsky\sovetsky.shp'
+
+s = '\ '
+len_distr = len(IV.split(s[0])[-1])
+print(IV.split(s[0])[-1], len_distr)
+
+IV1 = IV[:-len_distr]
+print(IV1)
 
 
 

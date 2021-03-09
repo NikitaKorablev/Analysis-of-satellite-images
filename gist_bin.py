@@ -98,12 +98,16 @@ print(type(mask))
 mask[mask < p] = 0
 mask[mask >= p] = 1
 
+# if sum(mask) > mask.shape[0]*mask.shape[1]:
+#     mask = 1 - mask
+
 plt.figure(figsize=(20,10))
 plt.title("mask_MNDWI")
 plt.imshow(mask, 'Greys')
 plt.show()
 
 save = folder[:folder.find('MNDWI')]
+print(save)
 np.save(save + "mask_MNDWI", mask)
 '''--------------------------------------------------------------------------------------------------'''
 
@@ -182,6 +186,7 @@ print()
 '''  -----NDWI-----  '''
 print('  -----  NDWI  -----  ')
 p = 0.18
+print(p)
 folder = name + r'/NDWI.npy'
 t = 'NDWI'
 NDWI = np.load(folder)
@@ -206,7 +211,7 @@ f_index_2 = hist2(f_index_1, bins, t)
 print('f_index_2[1]: ', f_index_2[1])
 
 for i in range (0, bins):
-    if f_index_2[1][i] >= 0.18:
+    if f_index_2[1][i] >= p:
         break
 
 # print('i: ', i)
@@ -223,6 +228,8 @@ print(type(mask))
 
 mask[mask < p] = 0
 mask[mask >= p] = 1
+
+# mask = 1 - mask
 
 plt.figure(figsize=(20,10))
 plt.title("mask_NDWI")
@@ -269,7 +276,7 @@ f_index_2 = hist2(f_index_1, bins, t)
 # print('f_index_2[1]: ', f_index_2[1])
 
 for i in range (0, bins):
-    if f_index_2[1][i] >= 0.16:
+    if f_index_2[1][i] >= p:
         break
 
 # print('i: ', i)
