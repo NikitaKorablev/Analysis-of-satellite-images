@@ -28,7 +28,6 @@ gf = save + 'Landsat_B'
 # # Адрес канала для маски
 # band = r'D:/NOU2020/EarthExplorer/nnovgorod/2018/23-JUN/LC08_L1TP_175021_20180623_20180703_01_T1_B3.TIF'
 
-
 print('----- Sres -----')
 sres(folder, save)
 print()

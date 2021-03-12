@@ -98,8 +98,6 @@ print(type(mask))
 mask[mask < p] = 0
 mask[mask >= p] = 1
 
-# if sum(mask) > mask.shape[0]*mask.shape[1]:
-#     mask = 1 - mask
 
 plt.figure(figsize=(20,10))
 plt.title("mask_MNDWI")
@@ -164,6 +162,13 @@ print(type(mask))
 
 mask[mask < p] = 0
 mask[mask >= p] = 1
+
+# print(mask.shape)
+# print(np.sum(mask.ravel()))
+# print(mask.shape[0] * mask.shape[1] / 2)
+
+if np.sum(mask.ravel()) > (mask.shape[0]*mask.shape[1]/2):
+    mask = 1 - mask
 
 plt.figure(figsize=(20,10))
 plt.title("mask_AWEInsh")
@@ -293,6 +298,9 @@ print(type(mask))
 
 mask[mask < p] = 0
 mask[mask >= p] = 1
+
+if np.sum(mask.ravel()) > (mask.shape[0]*mask.shape[1]/2):
+    mask = 1 - mask
 
 plt.figure(figsize=(20,10))
 plt.title("mask_AWEIsh")
