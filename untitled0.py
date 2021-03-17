@@ -24,7 +24,7 @@ Created on Tue Jan 19 18:41:26 2021
 
 
 
-from rout import rout as rt
+# from rout import rout as rt
 
 # name_date = rt()
 # name_date = name_date[name_date.find('nnovgorod') + 10:name_date.find('\LC08')]
@@ -39,7 +39,7 @@ from rout import rout as rt
 
 
 
-import os
+# import os
 
 # print("Текущая деректория:", os.getcwd())
 
@@ -79,14 +79,34 @@ import os
 # print(os.getcwd())
 
 
-IV = r'D:\other\tress_project\districts\sovetsky\sovetsky.shp'
+# IV = r'D:\other\tress_project\districts\sovetsky\sovetsky.shp'
 
-s = '\ '
-len_distr = len(IV.split(s[0])[-1])
-print(IV.split(s[0])[-1], len_distr)
+# s = '\ '
+# len_distr = len(IV.split(s[0])[-1])
+# print(IV.split(s[0])[-1], len_distr)
 
-IV1 = IV[:-len_distr]
-print(IV1)
+# IV1 = IV[:-len_distr]
+# print(IV1)
+
+
+
+import glob
+
+year = glob.glob(r'D:\NOU2020\EarthExplorer\nnovgorod\2018\*\\')
+print(year, len(year))
+
+
+# print(list(glob.glob('e:\\*\\')))
+
+
+
+
+
+
+
+
+
+
 
 
 
