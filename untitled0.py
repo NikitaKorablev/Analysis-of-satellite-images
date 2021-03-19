@@ -89,10 +89,14 @@ Created on Tue Jan 19 18:41:26 2021
 # print(IV1)
 
 
-
+from rout import rout as rt
 import glob
 
-year = glob.glob(r'D:\NOU2020\EarthExplorer\nnovgorod\2018\*\\')
+name_file = rt()
+adres = name_file[:name_file.find('\LC08')]
+
+# adres = r'D:\NOU2020\EarthExplorer\nnovgorod\2018' + r'\*\\'
+year = glob.glob(adres)
 print(year, len(year))
 
 

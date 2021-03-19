@@ -107,7 +107,13 @@ def perсent(f_1, f_2, name_mask, name_save):
 
 
 s = '\ '
-adres = glob.glob(r'D:\NOU2020\EarthExplorer\nnovgorod\2015\*\\')
+name_file = rt()
+a = name_file.split(s[0])
+adres = name_file[:name_file.find(a[len(a)-2])] + r'\*\\'
+
+adres = glob.glob(adres)
+# print(adres)
+
 for i in range(0, len(adres)):
     a = adres[i].split('\\')
     if a[len(a)-1] == '':
@@ -118,17 +124,39 @@ for i in range(0, len(adres)):
     adres[i] = year_day_month
     
 print(adres)
+print()
+
+def door():
+    if len(adres) == 3:
+        k = [1, 2, 3]
+    elif len(adres) > 3:
+        print('Select the images you want to use (3 elements separating them with a space):', end='')
+        k = str(input())
+        print()
+    k = k.split(' ')
+    for i in range(0, len(k)):
+        k[i] = int(k[i])
+    # print(k)
+    if len(k) < 3:
+        print('!Chouse 3 elements!')
+        k = door()
+    return k
+
+k = door()
+
+for i in range(0, len(adres)):
+    if adres[i] in name_file:
+        name_file = name_file[:name_file.find(adres[i])]
+
+print(name_file)
 
 
 
 
-# name_file = rt()
-# name_file = name_file[:name_file.find('\LC08')]
-
-# f1 = name_file + '\mask_MNDWI.npy'
-# f2 = name_file + '\mask_NDWI.npy'
-# f3 = name_file + '\mask_AWEInsh.npy'
-# f4 = name_file + '\mask_AWEIsh.npy'
+f1 = name_file + '\mask_MNDWI.npy'
+f2 = name_file + '\mask_NDWI.npy'
+f3 = name_file + '\mask_AWEInsh.npy'
+f4 = name_file + '\mask_AWEIsh.npy'
 
 # f_1 = np.load(f1)  #MNDWI
 # f_2 = np.load(f2)  #NDWI
