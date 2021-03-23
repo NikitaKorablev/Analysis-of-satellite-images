@@ -40,9 +40,6 @@ def getfun (folder, save):
    
     print ("complite")
     
-    print('min_2: ', np.min(b2), 'max_2: ', np.max(b2))
-    print('min_5: ', np.min(b5), 'max_5: ', np.max(b5))
-    
     b2 = None
     b5 = None
     b = None
@@ -73,9 +70,6 @@ def getfun (folder, save):
     np.save(save + 'AWEInsh', AWEInsh)
     
     print ("complite")
-    
-    # print('min_4: ', np.min(b4), 'max_4: ', np.max(b4))
-    # print('min_7: ', np.min(b7), 'max_7: ', np.max(b7))
     
     b4 = None
     b7 = None
@@ -111,19 +105,14 @@ def getfun (folder, save):
     '''AWEIsh = Blue + 2.5*Green - 1.5*(NIR + SWIR1) - 0.25*SWIR2'''
     
     '''1, 2, 4, 5, 7'''
-    print ("AWEIsh:", 'end=' '')
+    print ("AWEIsh:", end=' ')
     # b4 = np.load(folder + '4.npy')
     b5 = np.load(folder + '5.npy')
     b6 = np.load(folder + '6.npy')
    
     # a = 1.5*(b4 + b5)
     a = 1.5*(b5 + b6)
-    
-    # b4_max = np.max(b4)
-    # b5_max = np.max(b5)
-    # a_max = b4_max + b5_max
-    # print('a_max = ', a_max)
-    
+
     b4 = None
     b5 = None
     gc.collect()
@@ -133,14 +122,6 @@ def getfun (folder, save):
     b3 = np.load(folder + '3.npy')
     # b = b1 + 2.5*b2
     b = b2 + 2.5*b3
-    
-    
-    # b1_max = np.max(b1)
-    # b2_max = np.max(b2)
-    # print('b2_max = ', b2_max)
-    # b_max = b1_max + 2.5*b2_max
-    # print('b_max = ', b_max)
-
 
     b2 = None
     gc.collect()
@@ -158,12 +139,8 @@ def getfun (folder, save):
     AWEIsh = None
     gc.collect()
 
-    # print ("complite")
+    print ("complite")
 
-    # print('min_1: ', np.min(b1), 'max_1: ', np.max(b1))
-
-    b1 = None
-    gc.collect()
 
 
 

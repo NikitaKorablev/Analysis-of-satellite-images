@@ -5,7 +5,7 @@ Created on Fri Oct  9 18:00:09 2020
 @author: 1
 """
 from landsat_to_reflectance import l_to_r
-from calc_indexes import getfun
+from calc_indices import getfun
 from sres import sres
 from rout import rout as rt
 # from mask import mask
