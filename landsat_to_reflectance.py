@@ -1,4 +1,5 @@
 import numpy as np
+import tifffile
 
 
 def l_to_r (folder, folder2, save):
@@ -13,6 +14,8 @@ def l_to_r (folder, folder2, save):
     for  i in range(9):
         if i+1 != 8:
             print('Image №', i+1, ': ', end = '')
+            # arr = tifffile.imread(folder + str(i+1)+'.TIF')
+            # arr = np.array(arr)
             arr = np.load(folder + str(i+1)+'.npy')
             Mult = float(data['REFLECTANCE_MULT_BAND_'+str(i+1)][1])
             Add = float(data['REFLECTANCE_ADD_BAND_'+str(i+1)][1])

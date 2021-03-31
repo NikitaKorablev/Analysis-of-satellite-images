@@ -51,7 +51,7 @@ def sres(folder, save):
     # print('y_left:  ', y_left)
     # print('y_right: ', y_right)
     
-    for  j in range(9):
+    for j in range(9):
         if j+1 != 8:
             print('Image' + str(j+1) + ': ', end = '')
             image = tifffile.imread(folder + str(j+1)+'.TIF', key=0)

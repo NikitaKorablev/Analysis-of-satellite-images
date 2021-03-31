@@ -89,18 +89,78 @@ Created on Tue Jan 19 18:41:26 2021
 # print(IV1)
 
 
-from rout import rout as rt
-import glob
+# from rout import rout as rt
+# import glob
 
-name_file = rt()
-adres = name_file[:name_file.find('\LC08')]
+# name_file = rt()
+# adres = name_file[:name_file.find('\LC08')]
 
-# adres = r'D:\NOU2020\EarthExplorer\nnovgorod\2018' + r'\*\\'
-year = glob.glob(adres)
-print(year, len(year))
+# # adres = r'D:\NOU2020\EarthExplorer\nnovgorod\2018' + r'\*\\'
+# year = glob.glob(adres)
+# print(year, len(year))
 
 
 # print(list(glob.glob('e:\\*\\')))
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+import tifffile
+# from landsat_to_reflectance import l_to_r
+
+# f1 = np.load(r'D:\NOU2020\EarthExplorer\nnovgorod\2018\22-MAY\mask_MNDWI.npy')
+
+f2 = tifffile.imread(r'D:\NOU2020\EarthExplorer\nnovgorod\2016\28-JUL\LC08_L1TP_174021_20160728_20170322_01_T1_B5.TIF', key=0)
+# f2 = tifffile.imread(r'D:\NOU2020\EarthExplorer\nnovgorod\2018\26-AUG\LC08_L1TP_175021_20180826_20180830_01_T1_B5.TIF', key=0)
+# folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\23-JUN\LC08_L1TP_175021_20180623_20180703_01_T1_'
+# f2 = tifffile.imread(r'D:\NOU2020\EarthExplorer\nnovgorod\2018\23-JUN\LC08_L1TP_175021_20180623_20180703_01_T1_B5.TIF', key=0)
+f2 = np.array(f2)
+
+# f = np.load(r'D:\NOU2020\EarthExplorer\nnovgorod\2018\22-MAY\MNDWI.npy')
+
+
+# for i in range(3000, 4001):
+#     for j in range(3000, 4001):
+#         f2[i][j] = 1000000
+
+
+
+# f2 = np.array(f2)
+# print(np.max(f2))
+
+plt.figure(figsize=(20,10))
+plt.title('f2')
+plt.imshow(f2, 'Greys')
+plt.show()
+
+# save = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\23-JUN\\'
+# lr_in = folder + 'B'
+# lr_out = folder + 'MTL.txt'
+
+# l_to_r(lr_in, lr_out, save) # пересчёт tiff в reflectance
+
+
+
+# a = 'a'
+
+# b = 'abia'
+
+# for i in range(len(b)):
+#     if a == b[i]:
+#         del b[i]
+
+
+# print(b)
+
+
+
+
+
+
+
+
+
+
 
 
 

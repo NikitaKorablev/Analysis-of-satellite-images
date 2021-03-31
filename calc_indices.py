@@ -104,7 +104,7 @@ def getfun (folder, save):
     """ AWEIsh = CA + 2.5*Blue - 1.5*(Red + NIR) - 0.25*SWIR2 """
     '''AWEIsh = Blue + 2.5*Green - 1.5*(NIR + SWIR1) - 0.25*SWIR2'''
     
-    '''1, 2, 4, 5, 7'''
+    '''2, 3, 4, 5, 7'''
     print ("AWEIsh:", end=' ')
     # b4 = np.load(folder + '4.npy')
     b5 = np.load(folder + '5.npy')
