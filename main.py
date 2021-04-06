@@ -22,10 +22,10 @@ def main(folder, adres):
     # print('adres', adres)
     
     # # Адрес MTL файла
-    print('type_folder:', type(folder))
-    print('folder:', folder)
+    # print('type_folder:', type(folder))
+    # print('folder:', folder)
     lr_out = folder[:folder.find('_B')] + '_MTL.txt'
-    print('lr_out', lr_out)
+    # print('lr_out', lr_out)
     
     # # Адрес обрезанных снимков
     lr_in = save + 'Band'
@@ -88,22 +88,23 @@ elif a == '2':
 elif a == '':
     print('You choused: <<Do everithing>>')
     for i in range(len(adres)):
-        print(adres)
+        # print(adres)
         folder = glob.glob(adres[i] + '*.TIF')
-        print(folder, '\n')
+        # print(folder, '\n')
         for j in range(0, len(folder)):
             if 'B1' in folder[j]:
                 folder = folder[j]
                 break
         print(folder, '\n')
         
-        print('------------ main prog ------------')
+        print('------------ main prog ------------\n')
         
         main(folder, adres[i])
         
-        print('---- calc indices with limit ----\n\n')
+        print('---- calc indices with limit ----\n')
         # print(adres)
         bin_ind(adres[i])
+        print('\n\n\n')
 
     
     

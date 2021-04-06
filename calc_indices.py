@@ -26,13 +26,37 @@ import gc
 
 def getfun (folder, save):
     # mask = np.load('D:/NOU2020/Scientific-work/mask.npy')
-    """ MNDWI = (Blue − NIR)/(Blue + NIR) """
+    
+    """ NDWI = (Green − NIR)/(Green + NIR) """
+    '''3, 5'''
+    print ("NDWI:", end=' ')
+    b5 = np.load(folder + '5.npy')
+    b3 = np.load(folder + '3.npy')
+    a = b3 - b5
+    b = b3 + b5
+    b[b == 0] = 1
+    NDWI = np.divide(a,b)
+    # np.putmask(NDWI, mask, 0)
+    np.save(save + 'NDWI', NDWI)
+    
+    b5 = None
+    b3 = None
+    a = None
+    b = None
+    NDWI = None
+    gc.collect()
+    
+    print ("complite")
+    
+    
+    
+    """ MNDWI = (Green − SWIR1)/(Green + SWIR1) """
     '''2, 5'''
     print ("MNDWI:", end=' ')
-    b2 = np.load(folder + '2.npy')
-    b5 = np.load(folder + '5.npy')
-    a = b2 - b5
-    b = b2 + b5
+    b3 = np.load(folder + '3.npy')
+    b6 = np.load(folder + '6.npy')
+    a = b3 - b6
+    b = b3 + b6
     b[b == 0] = 1
     MNDWI = np.divide(a,b)
     # np.putmask(MNDWI, mask, 0)
@@ -40,106 +64,119 @@ def getfun (folder, save):
    
     print ("complite")
     
-    b2 = None
-    b5 = None
+    a = None
     b = None
+    b3 = None
+    b6 = None
     MNDWI = None
     gc.collect()
     
     
-    """ AWEInsh = 4*(Blue - Near) - (0.25*Red + 2.75*SWIR2) """
-    '''4*(Green − SWIR1) − (0.25*NIR + 2.75*SWIR1)'''
     
-    '''2, 4, 5, 7'''
-    print ("AWEInsh:", end=' ')
-    # b3 = np.load(folder + '3.npy')
-    b4 = np.load(folder + '4.npy')
+    # '''AWEIsh = Blue + 2.5*Green - 1.5*(NIR + SWIR1) - 0.25*SWIR2'''
+    # '''2, 3, 4, 5, 6, 7'''
+    # print ("AWEIsh:", end=' ')
+    
     # b5 = np.load(folder + '5.npy')
     # b6 = np.load(folder + '6.npy')
-    b7 = np.load(folder + '7.npy')
+   
+    # a = 1.5*(b5 + b6)
+
+    # b5 = None
+    # b6 = None
+    # gc.collect()
     
-    # a = 4*(b3 - b6)
-    # c = 0.25*b5 + 2.75*b6
+    # b2 = np.load(folder + '2.npy')
+    # b3 = np.load(folder + '3.npy')
+    # b = b2 + 0.25*b3
+
+    # b2 = None
+    # b3 = None
+    # gc.collect()
     
-    # AWEInsh = a - c
+    # b7 = np.load(folder + '7.npy')
+    
+    # AWEIsh = b - a - 0.25*b7
+    # # np.putmask(AWEIsh, mask, 0)
+    # np.save(save + 'AWEIsh', AWEIsh)
+
+    # b7 = None
+    # a = None
+    # b = None
+    # AWEIsh = None
+    # gc.collect()
+
+    # print ("complite")
     
     
-    c = 0.25*b4 + 2.75*b7
-    AWEInsh = 4*a - c
+    
+    
+    
+    
+    """ AWEInsh = 4*(Green − SWIR1) − (0.25*NIR + 2.75*SWIR1) """
+    # '''4*(Blue - Near) - (0.25*Red + 2.75*SWIR2)'''
+    
+    '''3, 5, 6'''
+    print ("AWEInsh:", end=' ')
+    b3 = np.load(folder + '3.npy')
+    b6 = np.load(folder + '6.npy')
+    a = b3 - b6
+    
+    b5 = np.load(folder + '5.npy')
+    b6 = np.load(folder + '6.npy')
+    b = 0.25*b5 + 2.75*b6
+    
+    AWEInsh = 4*a - b
     # np.putmask(AWEInsh, mask, 0)
     np.save(save + 'AWEInsh', AWEInsh)
     
     print ("complite")
     
-    b4 = None
-    b7 = None
-    a = None
-    c = None
-    AWEInsh = None
-    gc.collect()
-    
-    
-
-    """ NDWI = (Nir − Red)/(Nir + Red) """
-    '''4, 5'''
-    print ("NDWI:", end=' ')
-    b5 = np.load(folder + '5.npy')
-    b4 = np.load(folder + '4.npy')
-    a = b4 - b5
-    b = b4 + b5
-    b[b == 0] = 1
-    NDWI = np.divide(a,b)
-    # np.putmask(NDWI, mask, 0)
-    np.save(save + 'NDWI', NDWI)
-    
-    b5 = None
-    b4 = None
     a = None
     b = None
-    NDWI = None
+    # AWEInsh = None
     gc.collect()
     
-    print ("complite")
-
-    """ AWEIsh = CA + 2.5*Blue - 1.5*(Red + NIR) - 0.25*SWIR2 """
-    '''AWEIsh = Blue + 2.5*Green - 1.5*(NIR + SWIR1) - 0.25*SWIR2'''
     
-    '''2, 3, 4, 5, 7'''
-    print ("AWEIsh:", end=' ')
-    # b4 = np.load(folder + '4.npy')
+    
+    '''MAWEInsh = AWEInsh / (Green + NIR + SWIR1 + SWIR2)'''
+    '3, 5, 6, 7'
+    print ("MAWEInsh:", end=' ')
+    
+    b3 = np.load(folder + '3.npy')
     b5 = np.load(folder + '5.npy')
     b6 = np.load(folder + '6.npy')
-   
-    # a = 1.5*(b4 + b5)
-    a = 1.5*(b5 + b6)
-
-    b4 = None
-    b5 = None
-    gc.collect()
-    
-    # b1 = np.load(folder + '1.npy')
-    b2 = np.load(folder + '2.npy')
-    b3 = np.load(folder + '3.npy')
-    # b = b1 + 2.5*b2
-    b = b2 + 2.5*b3
-
-    b2 = None
-    gc.collect()
-    
     b7 = np.load(folder + '7.npy')
+    a = b3 + b5 + b6 + b7
     
-    AWEIsh = b - a - 0.25*b7
-    # np.putmask(AWEIsh, mask, 0)
-    np.save(save + 'AWEIsh', AWEIsh)
-
+    a[a==0] = 1
     
+    MAWEInsh = np.divide(AWEInsh, a)
+    
+    np.save(save + 'MAWEInsh', MAWEInsh)
+    
+    print ("complite")
+    
+    b3 = None
+    b5 = None
+    b6 = None
     b7 = None
     a = None
-    b = None
-    AWEIsh = None
+    AWEInsh = None
+    MAWEInsh = None
+    
     gc.collect()
+    
+    
+    
 
-    print ("complite")
+    
+    
+    
+    
+    
+    
+    
 
 
 

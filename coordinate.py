@@ -11,7 +11,7 @@ import glob
 
 def coordinate(filepath,lon_min,lat_max):
     # localname = glob.glob(filepath + '*B4.TIF')[0]
-    print('filepath', filepath)
+    # print('filepath', filepath)
     with rasterio.open(filepath, mode='r') as src:
         dataset = rasterio.open(filepath)
         # Use pyproj to convert point coordinates
@@ -26,7 +26,7 @@ def coordinate(filepath,lon_min,lat_max):
        
         # What is the corresponding row and column in our image?
         row, col = src.index(east, north) # spatial --> image coordinates
-        print(row,col)
+        # print(row,col)
         return(row, col)
 
 # file = r'D:\NOU2020\EarthExplorer\nnovgorod\2018\22-MAY\LC08_L1TP_175021_20180522_20180605_01_T1_'

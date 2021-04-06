@@ -13,6 +13,20 @@ from PIL import Image
 import os
 import glob
 
+def bul_im(array, name):
+    mask = np.zeros([array.shape[0], array.shape[1], 3], dtype=np.uint8)
+    
+    mask[array == 0] = [255, 255, 255]
+    mask[array == 1] = [0, 0, 0]
+    
+    mask = Image.fromarray(mask)
+    mask.save(os.getcwd() + '\\' + name + '.jpeg')
+    
+    mask = None
+    gc.collect()
+
+    
+
 def TF(limit, f, name, name_save, file):
     bul = np.zeros([f.shape[0], f.shape[1]])
     bul_i = np.zeros([f.shape[0], f.shape[1]])
@@ -36,7 +50,7 @@ def TF(limit, f, name, name_save, file):
     bul_i = None
     gc.collect()
 
-def perсent(f_1, f_2, name_file, name_indices, name_save):
+def perсent(f_1, f_2, name_file, name_indices, name_save, adres):
     f1 = np.zeros([f_1.shape[0], f_1.shape[1]])
     f2 = np.zeros([f_2.shape[0], f_2.shape[1]])
     
@@ -75,7 +89,7 @@ def perсent(f_1, f_2, name_file, name_indices, name_save):
     file = open(name_save + '\\' + name_file + '\statistical_data_for_' + name_indices + '.txt', 'w+')
     
     name = 'water'
-    limit =18
+    limit = 18
     TF(limit, f, name, name_save, file)
     
     name = 'ground'
@@ -102,7 +116,10 @@ def perсent(f_1, f_2, name_file, name_indices, name_save):
     
     # print("Текущая деректория:", os.getcwd())
     mask = Image.fromarray(mask)
-    mask.save(os.getcwd() + '\\' + name_indices + '.jpeg')
+    mask.save(os.getcwd() + '\mask_' + name_indices + '.jpeg')
+    
+    # f1.save(os.getcwd() + '\\' + name_indices + adres[0] + '.jpeg')
+    # f2.save(os.getcwd() + '\\' + name_indices + adres[1] + '.jpeg')
     
     mask = np.array(mask)
     
@@ -112,6 +129,11 @@ def perсent(f_1, f_2, name_file, name_indices, name_save):
     plt.title(name_file)
     plt.imshow(mask)
     plt.show()
+    
+    mask = None
+    
+    bul_im(f_1, 'bin_im_' + name_indices + '_' + adres[0])
+    bul_im(f_2, 'bin_im_' + name_indices + '_' + adres[1])
     '---------------------------------------------------------'
 
 def door(adres):
@@ -184,7 +206,7 @@ def index_comparator(name_indices, name_image, name_save):
     f = None
     gc.collect()
     
-    perсent(f1, f2, name_image, name_indices, name_save)
+    perсent(f1, f2, name_image, name_indices, name_save, adres[k[0]-1:k[1]])
 
 
 

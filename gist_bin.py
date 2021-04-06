@@ -52,6 +52,62 @@ def bin_ind(name):
     print(name)
     bins = 2000
     
+    file = open(name + 'data_of_pixels.txt' , 'w+')
+    
+    
+    '''  -----NDWI-----  '''
+    print('\t', '  -----  NDWI  -----  ')
+    p = 0.18
+    folder = name + r'/NDWI.npy'
+    t = 'NDWI'
+    NDWI = np.load(folder)
+    f_index_1 = hist1(NDWI, bins, t)
+    
+    plt.figure(figsize=(20,10))
+    plt.title("NDWI")
+    plt.imshow(NDWI, 'Greys')
+    plt.show()
+    
+    f_index_2 = hist2(f_index_1, bins, t + '_stair')
+    
+    for i in range (0, bins):
+        if f_index_2[1][i] >= p:
+            break
+    
+    print('\t', 'water percent area: ', 100*(f_index_2[0][i])/(NDWI.shape[0]*NDWI.shape[1]))
+    
+    
+    '''--------------------------------------------------------------------------------------------------'''
+    mask = np.copy(NDWI)
+    print(mask.shape)
+    print(type(mask))
+    
+    mask[mask < p] = 0
+    mask[mask >= p] = 1
+    
+    whater = np.sum(mask)
+    ground = mask.shape[0]*mask.shape[1] - np.sum(mask)
+    
+    file.write('------' + t + '\n')
+    file.write('whater count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
+    
+    plt.figure(figsize=(20,10))
+    plt.title("mask_NDWI")
+    plt.imshow(mask, 'Greys')
+    plt.show()
+    
+    save = folder[:folder.find('NDWI')]
+    np.save(save + "mask_NDWI", mask)
+    '''--------------------------------------------------------------------------------------------------'''
+    
+    
+    f_index_1 = None
+    f_index_2 = None
+    NDWI = None
+    gc.collect()
+    print()
+    
+    
     '''  -----MNDWI-----  '''
     print('\t', '  -----  MNDWI  -----  ')
     p = 0.18
@@ -65,25 +121,11 @@ def bin_ind(name):
     plt.imshow(MNDWI, 'Greys')
     plt.show()
     
-    # b = f_index_1[0][245:265]
-    # plt.title('MNDWI_2')
-    # plt.plot(b)
-    # plt.show()
-    
-    # print('MNDWI.min(): ', MNDWI.min())
-    
-    t = 'MNDWI_stair'
-    f_index_2 = hist2(f_index_1, bins, t)
-    
-    # print('f_index_2[1]: ', f_index_2[1])
-    
+    f_index_2 = hist2(f_index_1, bins, t + '_stair')
+
     for i in range (0, bins):
         if f_index_2[1][i] >= p:
             break
-    
-    # print('i: ', i)
-    
-    # print('f_index_2[0][i]: ', f_index_2[0][i])
     
     print('\t', 'water percent area: ', 100*(f_index_2[0][i])/(MNDWI.shape[0]*MNDWI.shape[1]))
     
@@ -96,6 +138,11 @@ def bin_ind(name):
     mask[mask < p] = 0
     mask[mask >= p] = 1
     
+    whater = np.sum(mask)
+    ground = mask.shape[0]*mask.shape[1] - np.sum(mask)
+    
+    file.write('------' + t + '\n')
+    file.write('whater count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
     
     plt.figure(figsize=(20,10))
     plt.title("mask_MNDWI")
@@ -103,7 +150,6 @@ def bin_ind(name):
     plt.show()
     
     save = folder[:folder.find('MNDWI')]
-    # print(save)
     np.save(save + "mask_MNDWI", mask)
     '''--------------------------------------------------------------------------------------------------'''
     
@@ -129,26 +175,12 @@ def bin_ind(name):
     plt.title("AWEInsh")
     plt.imshow(AWEInsh, 'Greys')
     plt.show()
-    
-    # b = f_index_1[0][203:310]
-    # plt.title('AWEInsh_2')
-    # plt.plot(b)
-    # plt.show()
-    
-    # print('AWEInsh.min(): ', AWEInsh.min())
-    
-    t = 'AWEInsh_stair'
-    f_index_2 = hist2(f_index_1, bins, t)
-    
-    # print('f_index_2[1]: ', f_index_2[1])
+
+    f_index_2 = hist2(f_index_1, bins, t + '_stair')
     
     for i in range (0, bins):
         if f_index_2[1][i] >= p:
             break
-    
-    # print('i: ', i)
-    
-    # print('f_index_2[0][i]: ', f_index_2[0][i])
     
     print('\t', 'water percent area: ', 100*(f_index_2[0][i])/(AWEInsh.shape[0]*AWEInsh.shape[1]))
     
@@ -161,12 +193,14 @@ def bin_ind(name):
     mask[mask < p] = 0
     mask[mask >= p] = 1
     
-    # print(mask.shape)
-    # print(np.sum(mask.ravel()))
-    # print(mask.shape[0] * mask.shape[1] / 2)
-    
     if np.sum(mask.ravel()) > (mask.shape[0]*mask.shape[1]/2):
         mask = 1 - mask
+        
+    whater = np.sum(mask)
+    ground = mask.shape[0]*mask.shape[1] - np.sum(mask)
+    
+    file.write('------' + t + '\n')
+    file.write('whater count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
     
     plt.figure(figsize=(20,10))
     plt.title("mask_AWEInsh")
@@ -186,111 +220,30 @@ def bin_ind(name):
     
     
     
-    '''  -----NDWI-----  '''
-    print('\t', '  -----  NDWI  -----  ')
+    '''  -----MAWEInsh-----  '''
+    print('\t', '  -----  MAWEInsh  -----  ')
     p = 0.18
-    # print(p)
-    folder = name + r'/NDWI.npy'
-    t = 'NDWI'
-    NDWI = np.load(folder)
-    f_index_1 = hist1(NDWI, bins, t)
+    folder = name + r'/MAWEInsh.npy'
+    t = 'MAWEInsh'
+    AWEInsh = np.load(folder)
+    f_index_1 = hist1(AWEInsh, bins, t)
     
     plt.figure(figsize=(20,10))
-    plt.title("NDWI")
-    plt.imshow(NDWI, 'Greys')
+    plt.title("MAWEInsh")
+    plt.imshow(AWEInsh, 'Greys')
     plt.show()
     
-    # b = f_index_1[0][317:320]
-    # plt.title('NDWI_2')
-    # plt.plot(b)
-    # plt.show()
-    
-    # print(f_index_1[1])
-    # print('NDWI.min(): ', NDWI.min())
-    
-    t = 'NDWI_stair'
-    f_index_2 = hist2(f_index_1, bins, t)
-    
-    # print('f_index_2[1]: ', f_index_2[1])
+    f_index_2 = hist2(f_index_1, bins, t + '_stair')
     
     for i in range (0, bins):
         if f_index_2[1][i] >= p:
             break
     
-    # print('i: ', i)
-    
-    # print('f_index_2[0][i]: ', f_index_2[0][i])
-    
-    print('\t', 'water percent area: ', 100*(f_index_2[0][i])/(NDWI.shape[0]*NDWI.shape[1]))
+    print('\t', 'water percent area: ', 100*(f_index_2[0][i])/(AWEInsh.shape[0]*AWEInsh.shape[1]))
     
     
     '''--------------------------------------------------------------------------------------------------'''
-    mask = np.copy(NDWI)
-    print(mask.shape)
-    print(type(mask))
-    
-    mask[mask < p] = 0
-    mask[mask >= p] = 1
-    
-    # mask = 1 - mask
-    
-    plt.figure(figsize=(20,10))
-    plt.title("mask_NDWI")
-    plt.imshow(mask, 'Greys')
-    plt.show()
-    
-    save = folder[:folder.find('NDWI')]
-    np.save(save + "mask_NDWI", mask)
-    '''--------------------------------------------------------------------------------------------------'''
-    
-    
-    f_index_1 = None
-    f_index_2 = None
-    NDWI = None
-    gc.collect()
-    print()
-    
-    
-    
-    '''  -----AWEIsh-----  '''
-    print('\t', '  -----  AWEIsh  -----  ')
-    p = 0.16
-    folder = name + r'/AWEIsh.npy'
-    t = 'AWEIsh'
-    AWEIsh = np.load(folder)
-    f_index_1 = hist1(AWEIsh, bins, t)
-    
-    plt.figure(figsize=(20,10))
-    plt.title("AWEIsh")
-    plt.imshow(AWEIsh, 'Greys')
-    plt.show()
-    
-    # b = f_index_1[0][317:320]
-    # plt.title('AWEIsh_2')
-    # plt.plot(b)
-    # plt.show()
-    
-    # print(f_index_1[1])
-    # print('AWEIsh.min(): ', AWEIsh.min())
-    
-    t = 'AWEIsh_stair'
-    f_index_2 = hist2(f_index_1, bins, t)
-    
-    # print('f_index_2[1]: ', f_index_2[1])
-    
-    for i in range (0, bins):
-        if f_index_2[1][i] >= p:
-            break
-    
-    # print('i: ', i)
-    
-    # print('f_index_2[0][i]: ', f_index_2[0][i])
-    
-    print('\t', 'water percent area: ', 100*(f_index_2[0][i])/(AWEIsh.shape[0]*AWEIsh.shape[1]))
-    
-    
-    '''--------------------------------------------------------------------------------------------------'''
-    mask = np.copy(AWEIsh)
+    mask = np.copy(AWEInsh)
     print(mask.shape)
     print(type(mask))
     
@@ -300,20 +253,33 @@ def bin_ind(name):
     if np.sum(mask.ravel()) > (mask.shape[0]*mask.shape[1]/2):
         mask = 1 - mask
     
+    whater = np.sum(mask)
+    ground = mask.shape[0]*mask.shape[1] - np.sum(mask)
+    
+    file.write('------' + t + '\n')
+    file.write('whater count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
+    
     plt.figure(figsize=(20,10))
-    plt.title("mask_AWEIsh")
+    plt.title("mask_MAWEInsh")
     plt.imshow(mask, 'Greys')
     plt.show()
     
-    save = folder[:folder.find('AWEIsh')]
-    np.save(save + "mask_AWEIsh", mask)
+    save = folder[:folder.find('MAWEInsh')]
+    np.save(save + "mask_MAWEInsh", mask)
     '''--------------------------------------------------------------------------------------------------'''
     
     
     f_index_1 = None
     f_index_2 = None
-    AWEIsh = None
+    AWEInsh = None
     gc.collect()
+    print()
+    
+    
+    
+    
+    file.close()
+    
 
 
 
