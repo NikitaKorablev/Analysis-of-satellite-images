@@ -234,12 +234,12 @@ elif per == '2':
     name_indices = 'MNDWI'
     index_comparator(name_indices, name_image, name_save)
 elif per == '3':
-    print('------- AWEIsh -------', '\n')
-    name_indices = 'AWEIsh'
+    print('------- AWEI -------', '\n')
+    name_indices = 'AWEI'
     index_comparator(name_indices, name_image, name_save)
 elif per == '4':
-    print('------- AWEInsh ------', '\n')
-    name_indices = 'AWEInsh'
+    print('------- MAWEI ------', '\n')
+    name_indices = 'MAWEI'
     index_comparator(name_indices, name_image, name_save)
 elif per == '5' or per == '':
     print('-------- NDWI --------', '\n')
@@ -251,12 +251,12 @@ elif per == '5' or per == '':
     name_indices = 'MNDWI'
     index_comparator(name_indices, name_image, name_save)
     
-    print('------- AWEIsh -------', '\n')
-    name_indices = 'AWEIsh'
+    print('------- AWEI -------', '\n')
+    name_indices = 'AWEI'
     index_comparator(name_indices, name_image, name_save)
     
-    print('------- AWEInsh ------', '\n')
-    name_indices = 'AWEInsh'
+    print('------- MAWEI ------', '\n')
+    name_indices = 'MAWEI'
     index_comparator(name_indices, name_image, name_save)
 
 

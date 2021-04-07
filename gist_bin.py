@@ -163,17 +163,17 @@ def bin_ind(name):
     
     
     
-    '''  -----AWEInsh-----  '''
-    print('\t', '  -----  AWEInsh  -----  ')
+    '''  -----AWEI-----  '''
+    print('\t', '  -----  AWEI  -----  ')
     p = 0.16
-    folder = name + r'/AWEInsh.npy'
-    t = 'AWEInsh'
-    AWEInsh = np.load(folder)
-    f_index_1 = hist1(AWEInsh, bins, t)
+    folder = name + r'/AWEI.npy'
+    t = 'AWEI'
+    AWEI = np.load(folder)
+    f_index_1 = hist1(AWEI, bins, t)
     
     plt.figure(figsize=(20,10))
-    plt.title("AWEInsh")
-    plt.imshow(AWEInsh, 'Greys')
+    plt.title("AWEI")
+    plt.imshow(AWEI, 'Greys')
     plt.show()
 
     f_index_2 = hist2(f_index_1, bins, t + '_stair')
@@ -182,11 +182,11 @@ def bin_ind(name):
         if f_index_2[1][i] >= p:
             break
     
-    print('\t', 'water percent area: ', 100*(f_index_2[0][i])/(AWEInsh.shape[0]*AWEInsh.shape[1]))
+    print('\t', 'water percent area: ', 100*(f_index_2[0][i])/(AWEI.shape[0]*AWEI.shape[1]))
     
     
     '''--------------------------------------------------------------------------------------------------'''
-    mask = np.copy(AWEInsh)
+    mask = np.copy(AWEI)
     print(mask.shape)
     print(type(mask))
     
@@ -203,34 +203,34 @@ def bin_ind(name):
     file.write('whater count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
     
     plt.figure(figsize=(20,10))
-    plt.title("mask_AWEInsh")
+    plt.title("mask_AWEI")
     plt.imshow(mask, 'Greys')
     plt.show()
     
-    save = folder[:folder.find('AWEInsh')]
-    np.save(save + "mask_AWEInsh", mask)
+    save = folder[:folder.find('AWEI')]
+    np.save(save + "mask_AWEI", mask)
     '''--------------------------------------------------------------------------------------------------'''
     
     
     f_index_1 = None
     f_index_2 = None
-    AWEInsh = None
+    AWEI = None
     gc.collect()
     print()
     
     
     
-    '''  -----MAWEInsh-----  '''
-    print('\t', '  -----  MAWEInsh  -----  ')
+    '''  -----MAWEI-----  '''
+    print('\t', '  -----  MAWEI  -----  ')
     p = 0.18
-    folder = name + r'/MAWEInsh.npy'
-    t = 'MAWEInsh'
-    AWEInsh = np.load(folder)
-    f_index_1 = hist1(AWEInsh, bins, t)
+    folder = name + r'/MAWEI.npy'
+    t = 'MAWEI'
+    MAWEI = np.load(folder)
+    f_index_1 = hist1(MAWEI, bins, t)
     
     plt.figure(figsize=(20,10))
-    plt.title("MAWEInsh")
-    plt.imshow(AWEInsh, 'Greys')
+    plt.title("MAWEI")
+    plt.imshow(MAWEI, 'Greys')
     plt.show()
     
     f_index_2 = hist2(f_index_1, bins, t + '_stair')
@@ -239,11 +239,11 @@ def bin_ind(name):
         if f_index_2[1][i] >= p:
             break
     
-    print('\t', 'water percent area: ', 100*(f_index_2[0][i])/(AWEInsh.shape[0]*AWEInsh.shape[1]))
+    print('\t', 'water percent area: ', 100*(f_index_2[0][i])/(MAWEI.shape[0]*MAWEI.shape[1]))
     
     
     '''--------------------------------------------------------------------------------------------------'''
-    mask = np.copy(AWEInsh)
+    mask = np.copy(MAWEI)
     print(mask.shape)
     print(type(mask))
     
@@ -260,23 +260,20 @@ def bin_ind(name):
     file.write('whater count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
     
     plt.figure(figsize=(20,10))
-    plt.title("mask_MAWEInsh")
+    plt.title("mask_MAWEI")
     plt.imshow(mask, 'Greys')
     plt.show()
     
-    save = folder[:folder.find('MAWEInsh')]
-    np.save(save + "mask_MAWEInsh", mask)
+    save = folder[:folder.find('MAWEI')]
+    np.save(save + "mask_MAWEI", mask)
     '''--------------------------------------------------------------------------------------------------'''
     
     
     f_index_1 = None
     f_index_2 = None
-    AWEInsh = None
+    MAWEI = None
     gc.collect()
     print()
-    
-    
-    
     
     file.close()
     

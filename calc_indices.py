@@ -70,54 +70,13 @@ def getfun (folder, save):
     b6 = None
     MNDWI = None
     gc.collect()
-    
-    
-    
-    # '''AWEIsh = Blue + 2.5*Green - 1.5*(NIR + SWIR1) - 0.25*SWIR2'''
-    # '''2, 3, 4, 5, 6, 7'''
-    # print ("AWEIsh:", end=' ')
-    
-    # b5 = np.load(folder + '5.npy')
-    # b6 = np.load(folder + '6.npy')
-   
-    # a = 1.5*(b5 + b6)
 
-    # b5 = None
-    # b6 = None
-    # gc.collect()
     
-    # b2 = np.load(folder + '2.npy')
-    # b3 = np.load(folder + '3.npy')
-    # b = b2 + 0.25*b3
-
-    # b2 = None
-    # b3 = None
-    # gc.collect()
-    
-    # b7 = np.load(folder + '7.npy')
-    
-    # AWEIsh = b - a - 0.25*b7
-    # # np.putmask(AWEIsh, mask, 0)
-    # np.save(save + 'AWEIsh', AWEIsh)
-
-    # b7 = None
-    # a = None
-    # b = None
-    # AWEIsh = None
-    # gc.collect()
-
-    # print ("complite")
-    
-    
-    
-    
-    
-    
-    """ AWEInsh = 4*(Green − SWIR1) − (0.25*NIR + 2.75*SWIR1) """
+    """ AWEI = 4*(Green − SWIR1) − (0.25*NIR + 2.75*SWIR1) """
     # '''4*(Blue - Near) - (0.25*Red + 2.75*SWIR2)'''
     
     '''3, 5, 6'''
-    print ("AWEInsh:", end=' ')
+    print ("AWEI:", end=' ')
     b3 = np.load(folder + '3.npy')
     b6 = np.load(folder + '6.npy')
     a = b3 - b6
@@ -126,9 +85,9 @@ def getfun (folder, save):
     b6 = np.load(folder + '6.npy')
     b = 0.25*b5 + 2.75*b6
     
-    AWEInsh = 4*a - b
+    AWEI = 4*a - b
     # np.putmask(AWEInsh, mask, 0)
-    np.save(save + 'AWEInsh', AWEInsh)
+    np.save(save + 'AWEI', AWEI)
     
     print ("complite")
     
@@ -139,9 +98,9 @@ def getfun (folder, save):
     
     
     
-    '''MAWEInsh = AWEInsh / (Green + NIR + SWIR1 + SWIR2)'''
+    '''MAWEI = AWEI / (Green + NIR + SWIR1 + SWIR2)'''
     '3, 5, 6, 7'
-    print ("MAWEInsh:", end=' ')
+    print ("MAWEI:", end=' ')
     
     b3 = np.load(folder + '3.npy')
     b5 = np.load(folder + '5.npy')
@@ -151,9 +110,9 @@ def getfun (folder, save):
     
     a[a==0] = 1
     
-    MAWEInsh = np.divide(AWEInsh, a)
+    MAWEI = np.divide(AWEI, a)
     
-    np.save(save + 'MAWEInsh', MAWEInsh)
+    np.save(save + 'MAWEI', MAWEI)
     
     print ("complite")
     
@@ -162,8 +121,8 @@ def getfun (folder, save):
     b6 = None
     b7 = None
     a = None
-    AWEInsh = None
-    MAWEInsh = None
+    AWEI = None
+    MAWEI = None
     
     gc.collect()
     
