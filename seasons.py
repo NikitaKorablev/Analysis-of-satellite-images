@@ -35,7 +35,7 @@ def TF(limit, f, name, name_save, file):
     
     np.putmask(bul, bul_i, 1)
     
-    per = 100 * sum(bul.ravel())/(f.shape[0] * f.shape[1])
+    per = 100 * np.sum(bul)/(bul.shape[0] * bul.shape[1])
     
     print('sum = ', sum(bul.ravel()))
     # print(f_1.shape[0] * f_1.shape[1])
@@ -43,38 +43,52 @@ def TF(limit, f, name, name_save, file):
     print('perсent of ' + name + ' = ', str(per)[:5])
     print()
     
-    file.write('number of ' + name + 'cells: ' + str(sum(bul.ravel())) + '\n')
+    file.write('number of ' + name + 'cells: ' + str(np.sum(bul)) + '\n')
     file.write('perсent of ' + name + ' = ' + str(per)[:5] + '\n'*2)
     
     bul = None
     bul_i = None
     gc.collect()
 
-def perсent(f_1, f_2, name_file, name_indices, name_save, adres):
+def perсent(f_1, f_2, file, adres, first_index, second_index, name_save):
     f1 = np.zeros([f_1.shape[0], f_1.shape[1]])
     f2 = np.zeros([f_2.shape[0], f_2.shape[1]])
-    
     f1[f_1 == 1] = 3 #water
     f1[f_1 == 0] = 1 #ground
     f2[f_2 == 1] = 15 #water
     f2[f_2 == 0] = 10 #ground
-    
     f = f1 + f2
     
     mask = np.zeros([f_1.shape[0], f_1.shape[1], 3], dtype=np.uint8)
     
-    print("Текущая деректория:", os.getcwd())
+    # print("Текущая деректория:", os.getcwd())
     os.chdir('..')
-    print("Текущая деректория:", os.getcwd())
+    # print("Текущая деректория:", os.getcwd())
     
     if os.path.isdir('Statistics_of_seasons'):
         os.chdir('Statistics_of_seasons')
     
-    print("Текущая деректория:", os.getcwd())
-    if not os.path.isdir(name_image):
-        os.mkdir(name_image)
+    year = str(adres.split('\\')[0])
+    adres = adres.split('\\')[1]
+    print(year)
     
-    os.chdir(name_image)
+    if not os.path.isdir(year):
+        os.mkdir(year)
+        
+    os.chdir(year)
+    
+    if not os.path.isdir(adres):
+        os.mkdir(adres)
+        
+    os.chdir(adres)
+    
+    name_file = first_index+'_'+second_index
+    
+    print("Текущая деректория:", os.getcwd())
+    if not os.path.isdir(name_file):
+        os.mkdir(name_file)
+    
+    os.chdir(name_file)
     
     # print("Текущая деректория:", os.getcwd())
     
@@ -83,10 +97,10 @@ def perсent(f_1, f_2, name_file, name_indices, name_save, adres):
     
     print()    
     
+    name_save += '\\' + year + '\\' + adres + '\\' + name_file
     
-    print(name_save + '\\' + name_file + '\statistical_data_for_' + name_indices + '.txt')
-    
-    file = open(name_save + '\\' + name_file + '\statistical_data_for_' + name_indices + '.txt', 'w+')
+    print(name_save + '\statistical_data_for_' + first_index + '_' + second_index + '.txt')
+    file = open(name_save + '\statistical_data_for_' + first_index + '_' + second_index + '.txt', 'w+')
     
     name = 'water'
     limit = 18
@@ -116,15 +130,10 @@ def perсent(f_1, f_2, name_file, name_indices, name_save, adres):
     
     # print("Текущая деректория:", os.getcwd())
     mask = Image.fromarray(mask)
-    mask.save(os.getcwd() + '\mask_' + name_indices + '.jpeg')
-    
-    # f1.save(os.getcwd() + '\\' + name_indices + adres[0] + '.jpeg')
-    # f2.save(os.getcwd() + '\\' + name_indices + adres[1] + '.jpeg')
+    mask.save(os.getcwd() + '\mask_' + first_index + '_' + second_index + '.jpeg')
     
     mask = np.array(mask)
-    
-    name_file += '_' + name_indices
-    
+
     plt.figure(figsize=(20,10))
     plt.title(name_file)
     plt.imshow(mask)
@@ -132,24 +141,26 @@ def perсent(f_1, f_2, name_file, name_indices, name_save, adres):
     
     mask = None
     
-    bul_im(f_1, 'bin_im_' + name_indices + '_' + adres[0])
-    bul_im(f_2, 'bin_im_' + name_indices + '_' + adres[1])
+    bul_im(f_1, 'bin_im_' + first_index)
+    bul_im(f_2, 'bin_im_' + second_index)
     '---------------------------------------------------------'
+    os.chdir('..')
+    os.chdir('..')
 
-def door(adres):
-    print(adres)
-    k = []
-    if len(adres) == 2:
-        k = [1, 2]
-    elif len(adres) > 2:
-        print('Select the images you want to use (2 elements separating them with "enter"):', end='')
-        for i in range(0, 2):
-            k.append(int(input()))
-        k.sort()
-    if len(k) < 2:
-        print('!Chouse 3 elements!')
-        k = door()
-    return k
+# def door(adres):
+#     print(adres)
+#     k = []
+#     if len(adres) == 2:
+#         k = [1, 2]
+#     elif len(adres) > 2:
+#         print('Select the images you want to use (2 elements separating them with "enter"):', end='')
+#         for i in range(0, 2):
+#             k.append(int(input()))
+#         k.sort()
+#     if len(k) < 2:
+#         print('!Chouse 3 elements!')
+#         k = door()
+#     return k
 
 
 name_file = rt()
@@ -169,10 +180,10 @@ for i in range(0, len(adres)):
     adres[i] = year_day_month
 
 a = None
-# print(adres)
+print(adres)
 # print()
 
-k = door(adres)
+# k = door(adres)
 
 # print(name_file)
 
@@ -186,78 +197,32 @@ k = door(adres)
 
 
 
-def index_comparator(name_indices, name_image, name_save):
-    f = []
-    # print(name_file, adres)
-    print('You selected images taken: ', end = '')
-    for i in range(0, 2):
-        print(adres[k[i]-1], end = '')
-        if i != 1:
-            print(', ', end = '')
-        f.append(name_file + adres[k[i]-1] + '\mask_' + name_indices + '.npy')
-    print('\n')
-    # print('a: ', a)
-    
-    f1 = np.load(f[0])
-    # print(np.min(f1), np.max(f1))
-    f2 = np.load(f[1])
-    # print(np.min(f2), np.max(f2))
-    
-    f = None
-    gc.collect()
-    
-    perсent(f1, f2, name_image, name_indices, name_save, adres[k[0]-1:k[1]])
+def index_comparator(file, adres, names_of_indices, name_save):
+    for first_index in names_of_indices:
+        for second_index in names_of_indices:
+            if first_index != second_index:
+                f1 = np.load(file + adres.split('\\')[1] + '\mask_' + first_index + '.npy')
+                # print(np.min(f1), np.max(f1))
+                f2 = np.load(file + adres.split('\\')[1] + '\mask_' + second_index + '.npy')
+                # print(np.min(f2), np.max(f2))
+                
+                perсent(f1, f2, file, adres, first_index, second_index, name_save)
+                
+                f1 = None
+                f2 = None
+                gc.collect
 
 
-
-
-for i in range(0, len(adres)):
-    a = adres[i].split('\\')
-    adres[i] = a[1]
 
 name_save = os.getcwd()[:os.getcwd().find('Scientific-work')] + 'Statistics_of_seasons'
 print('name_save: ', name_save, '\n')
 
-year = int(a[0])
-name_image = adres[k[0]-1] + '_' + adres[k[1]-1] + '_' + str(year)
-# print('name_image :', name_image)
 
-print('What would you like to count?\n1) NDWI\n2) MNDWI\n3) AWEIsh\n4) AWEInsh\n5) All')
+print('I started compearing!')
+names_of_indices = ['NDWI', 'MNDWI', 'AWEI', 'MAWEI']
+for i in adres:
+    index_comparator(name_file, i, names_of_indices, name_save)
 
-per = input()
-if per == '1':
-    print('-------- NDWI --------', '\n')
-    name_indices = 'NDWI'
-    index_comparator(name_indices, name_image, name_save)
-elif per == '2':
-    print('-------- MNDWI -------', '\n')
-    name_indices = 'MNDWI'
-    index_comparator(name_indices, name_image, name_save)
-elif per == '3':
-    print('------- AWEI -------', '\n')
-    name_indices = 'AWEI'
-    index_comparator(name_indices, name_image, name_save)
-elif per == '4':
-    print('------- MAWEI ------', '\n')
-    name_indices = 'MAWEI'
-    index_comparator(name_indices, name_image, name_save)
-elif per == '5' or per == '':
-    print('-------- NDWI --------', '\n')
-    name_indices = 'NDWI'
-    index_comparator(name_indices, name_image, name_save)
-    
-    print('-------- MNDWI -------', '\n')
-    
-    name_indices = 'MNDWI'
-    index_comparator(name_indices, name_image, name_save)
-    
-    print('------- AWEI -------', '\n')
-    name_indices = 'AWEI'
-    index_comparator(name_indices, name_image, name_save)
-    
-    print('------- MAWEI ------', '\n')
-    name_indices = 'MAWEI'
-    index_comparator(name_indices, name_image, name_save)
 
 
 
