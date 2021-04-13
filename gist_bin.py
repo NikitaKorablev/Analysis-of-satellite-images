@@ -89,7 +89,7 @@ def bin_ind(name):
     ground = mask.shape[0]*mask.shape[1] - np.sum(mask)
     
     file.write('------' + t + '\n')
-    file.write('whater count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
+    file.write('water count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
     
     plt.figure(figsize=(20,10))
     plt.title("mask_NDWI")
@@ -142,7 +142,7 @@ def bin_ind(name):
     ground = mask.shape[0]*mask.shape[1] - np.sum(mask)
     
     file.write('------' + t + '\n')
-    file.write('whater count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
+    file.write('water count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
     
     plt.figure(figsize=(20,10))
     plt.title("mask_MNDWI")
@@ -200,7 +200,7 @@ def bin_ind(name):
     ground = mask.shape[0]*mask.shape[1] - np.sum(mask)
     
     file.write('------' + t + '\n')
-    file.write('whater count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
+    file.write('water count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
     
     plt.figure(figsize=(20,10))
     plt.title("mask_AWEI")
@@ -257,7 +257,7 @@ def bin_ind(name):
     ground = mask.shape[0]*mask.shape[1] - np.sum(mask)
     
     file.write('------' + t + '\n')
-    file.write('whater count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
+    file.write('water count = ' + str(whater) + '\nground count = ' + str(ground) + '\n\n')
     
     plt.figure(figsize=(20,10))
     plt.title("mask_MAWEI")

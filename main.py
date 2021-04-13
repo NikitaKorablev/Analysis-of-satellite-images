@@ -6,7 +6,7 @@ Created on Fri Oct  9 18:00:09 2020
 """
 from landsat_to_reflectance import l_to_r
 from calc_indices import getfun
-from sres import sres
+# from sres import sres
 from sres_coordinate import sres_cd as sr_cd
 from rout import rout as rt
 from coordinate import coordinate as cd
