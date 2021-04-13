@@ -1,0 +1,81 @@
+  						2018-23-JUN
+-----  MNDWI  -----
+i:  1143
+f_index_2[0][i]:  16122849.0
+water percent area:  98.97511939986985
+
+  -----  AWEInsh  -----
+i:  124
+f_index_2[0][i]:  260056.0
+water percent area:  1.5964345786934155
+
+  -----  NDWI  -----  ***
+i:  1186
+f_index_2[0][i]:  2947068.0
+water percent area:  18.09149283600781
+
+  -----  AWEIsh  -----  
+i:  493
+f_index_2[0][i]:  4925685.0
+water percent area:  30.23784822404204
+
+						2018-26-AUG
+  -----  MNDWI  -----  
+i:  1021
+f_index_2[0][i]:  16112391.0
+water percent area:  98.88800946925457
+
+  -----  AWEInsh  -----  
+i:  148
+f_index_2[0][i]:  259643.0
+water percent area:  1.59353006283336
+
+  -----  NDWI  -----  ***
+i:  927
+f_index_2[0][i]:  2325208.0
+water percent area:  14.270705739575615
+
+  -----  AWEIsh  -----  
+i:  436
+f_index_2[0][i]:  12003866.0
+water percent area:  73.6723937915647
+
+
+						2019-13-AUG
+
+
+  -----  MNDWI  -----  
+i:  1014
+f_index_2[0][i]:  16134030.0
+water percent area:  98.9946848899013
+
+  -----  AWEInsh  -----  
+i:  1912
+f_index_2[0][i]:  16124554.0
+water percent area:  98.93654234064257
+
+  -----  NDWI  -----  
+i:  1624
+f_index_2[0][i]:  1906047.0
+water percent area:  11.695064540622628
+
+  -----  AWEIsh  -----  
+i:  1711
+f_index_2[0][i]:  16000749.0
+water percent area:  98.17690343066197
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

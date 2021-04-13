@@ -17,7 +17,7 @@ b4 = np.load(folder + '4.npy')
 b5 = np.load(folder + '5.npy')
 b7 = np.load(folder + '7.npy')
 
-MNDWI   = getMNDWI(b2, b5)
+MNDWI = getMNDWI(b2, b5)
 T = 0.3877
 MNDWI[MNDWI >= T] = 1
 MNDWI[MNDWI < T] = 0
