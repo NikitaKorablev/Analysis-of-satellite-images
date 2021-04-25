@@ -30,9 +30,9 @@ def rout():
     # folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2015\27-AUG\LC08_L1TP_174021_20150827_20170405_01_T1_B'
     # folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2015'
     
-    # folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2014'
+    folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2014'
     
-    folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2013'
+    # folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2013'
     
     # folder = r'D:\NOU2020\EarthExplorer\nnovgorod\2020'
     

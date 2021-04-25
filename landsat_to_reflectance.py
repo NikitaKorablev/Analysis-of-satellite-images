@@ -1,5 +1,5 @@
 import numpy as np
-import tifffile
+# import tifffile
 
 
 def l_to_r (folder, folder2, save):
